@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <time.h>
 #include <math.h>
 
@@ -15,31 +16,45 @@ void wCount(char* string);
 
 /* ------------ EX3 ------------ */
 void conversion(char* string);
+int checkstring(char* string);
 
-/* --- GLOBAL FUNCTION DEFINITION --- */
+/* -- GLOBAL FUNCTION DEFINITION -- */
 int main(int argc, char* argv[])
 {
 	/* ------------ EX1 ------------ */
-	int a, b;
+	int a, b, res;
 
 	printf("enter two numbers please :\n");
 	scanf("%d", &a);
 	scanf("%d", &b);
 
-	int res = power(a, b);
-	printf("%d^%d = %d\n", a, b, res);
+	while(b <= 0)
+	{
+		printf("wrong numbers ! Please re-enter two numbers ... \n");
+		scanf("%d", &a);
+		scanf("%d", &b);
+	}
+
+	res = power(a, b);
+	printf("normal power function\n%d^%d = %d\n\n", a, b, res);
 
 	res = recPower(a, b);
-	printf("%d^%d = %d\n", a, b, res);
+	printf("recursive power function\n%d^%d = %d\n\n", a, b, res);
 
 	res = recOptiPower(a, b);
-	printf("%d^%d = %d\n", a, b, res);
+	printf("optimised recursive power function\n%d^%d = %d\n", a, b, res);
 
 	/* ------------ EX2 ------------ */
-	printf("\nhello my name is henry pot de beurre\nlol\n>.>\n\n");
-	wCount("hello my name is henry pot de beurre\nlol\n>.>\n");
-	conversion("henrypotdebeurre");
-	conversion("512");
+	char* string;
+
+	printf("\nLorem ipsum dolor sit amet, consectetur adipiscing elit,\nsed do eiusmod tempor incididunt ut labore\net dolore magna aliqua\n\n");
+	wCount("Lorem ipsum dolor sit amet, consectetur adipiscing elit,\nsed do eiusmod tempor incididunt ut labore\net dolore magna aliqua");
+
+	/* ------------ EX3 ------------ */
+	printf("enter a string without spaces please ...\n");
+	scanf("%s", string);
+	conversion(string);
+	// conversion("512");
 
 	return EXIT_SUCCESS;
 }
@@ -67,8 +82,10 @@ int power(int a, int n)
 
 int recPower(int a, int n)
 {
-	if(n == 1)
+	if(n <= 0)
 	{
+		return -1;
+	}else if(n == 1){
 		return a;
 	}else{
 		return (a*recPower(a, n-1));
@@ -77,11 +94,13 @@ int recPower(int a, int n)
 
 int recOptiPower(int a, int n)
 {
-	if(n == 1)
+	if(n <= 0)
 	{
+		return -1;
+	}else if(n == 1){
 		return a;
 	}else{
-		if(n%2 == 0)
+		if(a%2 == 0)
 		{
 			int tmp = recPower(a, n/2);
 			return (a*tmp);
@@ -108,48 +127,74 @@ void wCount(char* string)
 		}
 	}
 
-	printf("we have :\n- %d characters\n- %d words\n- %d lines\n\n", i, word, line);
+	printf("in the text above we have :\n- %d characters\n- %d words\n- %d lines\n\n", i, word, line + 1);
 }
 
 /* ------------ EX3 ------------ */
-void conversion(char* string)
+
+int checkstring(char* string)
 {
-	int nb, nb10;
-	char* newstring;
+	int i = 0;
 
 	if(string[i] > 'a' || string[i] < 'z')
-		{
-			printf("alphabetical string : %s\n", string);
-			base26to10();
-			/* printf("%d ", string[i] - 97); */
-		}else if(string[i] > '0' || string[i] < '9')
-		{
-			nb = strtol(string, &newstring, 10);
-			printf("numerical string : %d\n", num);
-			nb10 = base10to26(nb);
-			printf("(%d)_26 == (%d)_10\n", nb, nb10);
-		}else
-		{
-			printf("wrong string you dummie\n");
-			return;
-		}
-	printf("\n");
-}
-
-int base26to10()
-{
-	int i, calc;
-	/* abc = a x 26^2 + b x 26^1 + c x 26^0 = 28, avec a = 0, b = 1, c = 2 ... */
-	for(i = 0; string[i] != '\0'; i++)
 	{
-		calc = string[i] * recPower(26, i);
-		/* return base26to10();*/
-	}
+		return 1;
+	}else if(string[i] >= '0' || string[i] <= '9')
+	{
+		return 0;
+	}else
+		return -1;
 }
 
-int base10to26(int num)
+void conversion(char* string)
 {
-	/* tables de conversion comme en architecture ... */
+	int i, nb, base;
+
+	if(checkstring(string) == 0)
+	{
+		base = 26;
+
+		int result10;
+		int lenght = strlen(string);
+		nb = result10 = 0;
+
+		for(i = lenght - 1; i >= 0; i--)
+		{
+			nb = (string[i] - 97);
+
+			if(nb >= base)
+			{
+				printf("invalid string ...\n");
+				return;
+			}else if(i == lenght - 1)
+			{
+				result10 = nb;
+			}else{
+				result10 += nb * recOptiPower(26, i);
+			}
+		}
+
+		printf("result = %d\n", result10);
+
+	}else if(checkstring(string) == 1)
+	{
+		base = 10;
+
+		nb = atoi(string);
+		char* result26 = "";
+		char numbs[27] = "abcdefghijklmnopqrstuvwxyz";
+
+		while(nb > 0)
+		{
+			result26 += numbs[nb%base];
+			nb /= base;
+		}
+
+		printf("result = %d\n", result26);
+
+	}else{
+		printf("wrong string ...\n");
+	}
 }
 
 /* ------------ EX4 ------------ */
