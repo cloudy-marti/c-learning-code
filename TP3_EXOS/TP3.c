@@ -57,7 +57,8 @@ int main(int argc, char* argv[])
 	printf("enter a string without spaces please ...\n");
 	scanf("%s", string);
 	conversion(string);
-	// conversion("512");
+
+	/* ------------ EX4 ------------ */
 
 	return EXIT_SUCCESS;
 }
@@ -260,3 +261,4 @@ void conversion(char* string)
 }
 
 /* ------------ EX4 ------------ */
+
