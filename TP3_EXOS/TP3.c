@@ -15,8 +15,11 @@ int recOptiPower(int a, int n);
 void wCount(char* string);
 
 /* ------------ EX3 ------------ */
-void conversion(char* string);
 int checkstring(char* string);
+void to10(char* string);
+void to26(char* string);
+void mirror(char* string);
+void conversion(char* string);
 
 /* -- GLOBAL FUNCTION DEFINITION -- */
 int main(int argc, char* argv[])
@@ -28,7 +31,7 @@ int main(int argc, char* argv[])
 	scanf("%d", &a);
 	scanf("%d", &b);
 
-	while(b <= 0)
+	while(b < 0)
 	{
 		printf("wrong numbers ! Please re-enter two numbers ... \n");
 		scanf("%d", &a);
@@ -67,9 +70,11 @@ int power(int a, int n)
 	int i;
 	int res = 1;
 
-	if(n <= 0)
+	if(n < 0)
 	{
 		res = -1;
+	}else if(n == 0){
+		res = 1;
 	}else
 	{
 		for(i = 0; i < n; i++)
@@ -82,9 +87,11 @@ int power(int a, int n)
 
 int recPower(int a, int n)
 {
-	if(n <= 0)
+	if(n < 0)
 	{
 		return -1;
+	}else if(n == 0){
+		return 1;
 	}else if(n == 1){
 		return a;
 	}else{
@@ -94,18 +101,20 @@ int recPower(int a, int n)
 
 int recOptiPower(int a, int n)
 {
-	if(n <= 0)
+	if(n < 0)
 	{
 		return -1;
+	}else if(n == 0){
+		return 1;
 	}else if(n == 1){
 		return a;
 	}else{
-		if(a%2 == 0)
+		if(n%2 == 0)
 		{
-			int tmp = recPower(a, n/2);
-			return (a*tmp);
+			int tmp = recOptiPower(a, n/2);
+			return (tmp*tmp);
 		}else{
-			return (a*recPower(a, n-1));
+			return (a*recOptiPower(a, n-1));
 		}
 	}
 }
@@ -134,66 +143,119 @@ void wCount(char* string)
 
 int checkstring(char* string)
 {
-	int i = 0;
+	int i, tmp;
 
-	if(string[i] > 'a' || string[i] < 'z')
+	if(string[0] >= 'a' && string[0] <= 'z')
 	{
-		return 1;
-	}else if(string[i] >= '0' || string[i] <= '9')
+		tmp = 1;
+	}else if(string[0] >= '0' && string[0] <= '9')
 	{
-		return 0;
-	}else
-		return -1;
+		tmp = 0;
+	}else{
+		tmp = -1;
+	}
+
+	for(i = 0; i != '\0'; i++)
+	{
+		if(tmp == 1)
+		{
+			if(string[i] < 'a' || string[i] > 'z')
+			{
+				printf("%c is not a letter\n", string[i]);
+				return -1;
+			}
+		}else if(tmp == 0)
+		{
+			if(string[i] < '0' || string[i] > '9')
+			{
+				printf("%c is not a number\n", string[i]);
+				return -1;
+			}
+		}else
+			return -1;	
+	}
+
+	return tmp;
+}
+
+void to10(char* string)
+{
+	int i, nb, lenght, pow, res;
+	res = 0;
+
+	lenght = strlen(string);
+
+	for(i = 0; i < lenght; i++)
+	{
+		nb = (string[i] - 97);
+		pow = lenght - i - 1;
+
+		printf("%c = %d\n", string[i], nb);
+
+		if(nb >= 26)
+		{
+			printf("invalid string ...\n");
+			return;
+
+		}else{
+			printf("26^%d = %d\n", pow, recOptiPower(26, pow));
+			res += nb * recOptiPower(26, pow);
+		}
+		printf("result = %d\n", res);
+	}
+
+	printf("final result = %d\n", res);
+
+	return;
+}
+
+void to26(char* string)
+{
+	int i = 0;
+	int nb = atoi(string);
+	char res[256];
+
+	while(nb > 0)
+	{
+		res[i] += 'a'+nb%26;
+		nb /= 26;
+		i++;
+	}
+
+	res[i] = '\0';
+
+	mirror(res);
+}
+
+void mirror(char* string)
+{
+	int i, lenght;
+	lenght = strlen(string) - 1;
+
+	for(i = lenght; i >= 0; i--)
+	{
+		printf("%c", string[i]);
+	}
+	printf("\n");
 }
 
 void conversion(char* string)
 {
-	int i, nb, base;
+	int tmp;
+	tmp = checkstring(string);
 
-	if(checkstring(string) == 0)
+	if(tmp == 1)
 	{
-		base = 26;
+		printf("entering base 26 to 10\n");
+		to10(string);
 
-		int result10;
-		int lenght = strlen(string);
-		nb = result10 = 0;
-
-		for(i = lenght - 1; i >= 0; i--)
-		{
-			nb = (string[i] - 97);
-
-			if(nb >= base)
-			{
-				printf("invalid string ...\n");
-				return;
-			}else if(i == lenght - 1)
-			{
-				result10 = nb;
-			}else{
-				result10 += nb * recOptiPower(26, i);
-			}
-		}
-
-		printf("result = %d\n", result10);
-
-	}else if(checkstring(string) == 1)
+	}else if(tmp == 0)
 	{
-		base = 10;
-
-		nb = atoi(string);
-		char* result26 = "";
-		char numbs[27] = "abcdefghijklmnopqrstuvwxyz";
-
-		while(nb > 0)
-		{
-			result26 += numbs[nb%base];
-			nb /= base;
-		}
-
-		printf("result = %d\n", result26);
+		printf("entering base 10 to 26\n");
+		to26(string);
 
 	}else{
-		printf("wrong string ...\n");
+		printf("wrong string you dummie ...\n");
 	}
 }
 
