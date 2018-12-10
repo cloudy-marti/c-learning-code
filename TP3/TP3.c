@@ -21,6 +21,12 @@ void to26(char* string);
 void mirror(char* string);
 void conversion(char* string);
 
+/* ------------ EX4 ------------ */
+int binarySearch(int* tab, int min, int max, int nb);
+
+/* ------------ EX5 ------------ */
+void bubbleSort(int* tab, int size);
+
 /* -- GLOBAL FUNCTION DEFINITION -- */
 int main(int argc, char* argv[])
 {
@@ -59,6 +65,46 @@ int main(int argc, char* argv[])
 	conversion(string);
 
 	/* ------------ EX4 ------------ */
+	int nb, size;
+	size = 10;
+	int array[size];
+	
+	printf("The array is the following :\n");
+
+	for(int i = 0; i < size; i++)
+	{
+		array[i] = i*3;
+		printf("%d ", array[i]);
+	}
+
+	printf("\n");
+
+	printf("please choose an integer\n");
+	scanf("%d", &nb);
+
+	binarySearch(array, 0, size, nb);
+
+	/* ------------ EX4 ------------ */
+	int i;
+	srand(time(NULL));
+
+	for(i = 0; i < size; i++)
+	{
+		array[i] = rand()%50;
+		printf("%d ", array[i]);
+	}
+
+	printf("\n");
+
+	bubbleSort(array, size);
+
+	printf("final result :\n");
+	for(i = 0; i < size; i++)
+	{
+		printf("%d ", array[i]);
+	}
+
+	printf("\n");
 
 	return EXIT_SUCCESS;
 }
@@ -262,3 +308,53 @@ void conversion(char* string)
 
 /* ------------ EX4 ------------ */
 
+int binarySearch(int* tab, int min, int max, int nb)
+{
+	int i, mid;
+
+	if(min == max)
+	{
+		if(tab[min] == nb)
+		{
+			printf("number %d has been found on index %d.\n", nb, min);
+			return nb;
+		}else
+			printf("number %d is not in this array ...\n", nb);
+			return -1;
+	}
+
+	mid = (min + max) / 2;
+
+	for(i = min; i <= max; i++)
+	{
+		if(tab[mid] < nb)
+		{
+			return binarySearch(tab, mid+1, max, nb);
+		}else
+		{
+			return binarySearch(tab, min, mid, nb);
+		}
+	}
+}
+
+/* ------------ EX5 ------------ */
+
+void bubbleSort(int* tab, int size)
+{
+	int i, j, tmp, oriSize;
+	oriSize = size;
+
+	for(j = 1; j < oriSize; j++)
+	{
+		for(i = 0; i < size-1; i++)
+		{
+			if(tab[i] > tab[i+1])
+			{
+				tmp = tab[i];
+				tab[i] = tab[i+1];
+				tab[i+1] = tmp;
+			}
+		}
+		size--;
+	}
+}
