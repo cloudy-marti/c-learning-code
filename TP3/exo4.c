@@ -29,3 +29,27 @@ int binarySearch(int* tab, int min, int max, int nb)
 		}
 	}
 }
+
+void printArray(char* string, int size)
+{
+	int i;
+
+	for(i = 0; i < size; i++)
+	{
+		printf("%d ", array[i]);
+	}
+
+	printf("\n");
+}
+
+void fillRandArray(char* string, int size)
+{
+	int i;
+
+	for(i = 0; i < size; i++)
+	{
+		array[i] = rand()%50;
+	}
+
+	printf("\n");
+}
