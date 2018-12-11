@@ -48,7 +48,7 @@ int main(int argc, char* argv[])
 	conversion(string);
 
 	/* ------------ EX4 ------------ */
-	int i, nb, size;
+	int nb, size;
 	size = 10;
 	int array[size];
 	
@@ -60,8 +60,8 @@ int main(int argc, char* argv[])
 		printf("%d ", array[i]);
 	}*/
 
-	fillRandArray(string, size);
-	printArray(string, size);
+	fillRandArray(array, size);
+	printArray(array, size);
 
 	printf("please choose an integer\n");
 	scanf("%d", &nb);
@@ -71,8 +71,8 @@ int main(int argc, char* argv[])
 	/* ------------ EX4 ------------ */
 	srand(time(NULL));
 
-	fillRandArray(string, size);
-	printArray(string, size);
+	fillRandArray(array, size);
+	printArray(array, size);
 
 	/*for(i = 0; i < size; i++)
 	{
