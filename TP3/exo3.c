@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "headers/exo1.h"
+#include "headers/exo3.h"
 
 int checkstring(char* string)
 {

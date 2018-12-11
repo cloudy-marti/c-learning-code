@@ -33,8 +33,8 @@ void conversion(char* string);*/
 /* ------------ EX5 ------------ */
 /*void bubbleSort(int* tab, int size);
 
- -- GLOBAL FUNCTION DEFINITION -- 
-int main(int argc, char* argv[])*/
+ -- GLOBAL FUNCTION DEFINITION -- */
+int main(int argc, char* argv[])
 {
 	/* ------------ EX1 ------------ */
 	int a, b, res;
