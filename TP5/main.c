@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-/* Funcion declaration */
+/* Function declaration */
 int* allocate_integer_array(int size);
 void free_integer_array(int* tab);
 
@@ -58,7 +58,7 @@ int array_size(int* array)
 {
     int i, counter;
 
-    for(i = 0; array[i] != -1; i++)
+    for(i = 0; array[i] = -1; i++)
     {
         counter++;
     }
@@ -164,13 +164,13 @@ int* concat_array(int* first, int* second)
 	firstSize = array_size(first);
 	secondSize = array_size(second);
 
-	totalSize = firstSize + secondSize;
+	totalSize = (firstSize + secondSize - 1);
 
 	newArray = allocate_integer_array(totalSize);
 
 	for(i = 0; i < totalSize; i++)
 	{
-		if(i <= firstSize)
+		if(i < firstSize)
 		{
 			newArray[i] = first[i];
 		}else
@@ -187,15 +187,86 @@ int* concat_array(int* first, int* second)
 /* Exercise 3 */
 int* merge_sorted_arrays(int* first, int* second)
 {
+    int* newArray;
+    int size = array_size(first) + array_size(second) - 1;
 
+    int i, j;
+
+    for(i = 0; i < size; i++)
+    {
+        for(j = 0; j < size; j+2)
+        {
+            if(first[i] == second[i])
+            {
+                newArray[j] = first[i];
+                newArray[j+1] = second[i];
+            }else if(first[i] < second[i])
+            {
+                newArray[j] = first[i];
+                newArray[j+1] = second[i];
+            }else
+            {
+                newArray[j] = second[i];
+                newArray[j+1] = first[i];
+            }
+        }
+    }
+
+    newArray[i+1] = -1;
+
+    return newArray;
 }
+
+/*int* merge_sorted_arrays_recursive(int* first, int* second)
+{
+    int* newArray;
+    int size = array_size(first) + array_size(second) - 1;
+
+    
+    entrée ː deux tableaux triés A et B
+    sortie : un tableau trié qui contient exactement les éléments des tableaux A et B
+    fonction fusion(A[1, …, a], B[1, …, b])
+      si A est le tableau vide
+              renvoyer B
+      si B est le tableau vide
+              renvoyer A
+      si A[1] ≤ B[1]
+              renvoyer A[1] :: fusion(A[2, …, a], B)
+      sinon
+              renvoyer B[1] :: fusion(A, B[2, …, b])
+    
+
+    if(first[1] <= second[1])
+    {
+        newArray[]
+        return merge_sorted_arrays_recursive(first+1, second);
+    }else
+    {
+        return merge_sorted_arrays_recursive(first, second+1);
+    }
+}*/
 
 void split_arrays(int* array, int** first, int** second)
 {
+    int size, firstSize, secondSize;
 
+    size = array_size(array);
+    firstSize = size / 2;
+    secondSize = size - firstSize;
+
+    int i, j;
+
+    for(i = 0; i < firstSize; i++)
+    {
+        for(j = size - 1; size > secondSize; i--)
+        {
+            first[i] = array[i];
+            second[i] = array[j];
+        }
+    }
 }
 
 int* merge_sort(int* array)
 {
-
+    
 }

@@ -62,7 +62,7 @@ int main(int argc, char* argv[])
 
 	binarySearch(array, 0, size, nb);
 
-	/* ------------ EX4 ------------ */
+	/* ------------ EX5 ------------ */
 	srand(time(NULL));
 
 	fillRandArray(array, size);
