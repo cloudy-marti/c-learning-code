@@ -71,13 +71,13 @@ int main(int argc, char* argv[])
 	conversion(string);
 
 	/* ------------ EX4 ------------ */
-	int nb, size;
+	int i, nb, size;
 	size = 10;
 	int array[size];
 	
 	printf("The array is the following :\n");
 
-	for(int i = 0; i < size; i++)
+	for(i = 0; i < size; i++)
 	{
 		array[i] = i*3;
 		printf("%d ", array[i]);
@@ -91,7 +91,6 @@ int main(int argc, char* argv[])
 	binarySearch(array, 0, size, nb);
 
 	/* ------------ EX4 ------------ */
-	int i;
 	srand(time(NULL));
 
 	for(i = 0; i < size; i++)

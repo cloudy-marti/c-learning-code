@@ -10,9 +10,10 @@ int binarySearch(int* tab, int min, int max, int nb)
 		{
 			printf("number %d has been found on index %d.\n", nb, min);
 			return nb;
-		}else
+		}else{
 			printf("number %d is not in this array ...\n", nb);
-			return -1;
+			return -1;x
+		}
 	}
 
 	mid = (min + max) / 2;
