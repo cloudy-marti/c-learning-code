@@ -30,7 +30,7 @@ int binarySearch(int* tab, int min, int max, int nb)
 	}
 }
 
-void printArray(char* string, int size)
+void printArray(int* array, int size)
 {
 	int i;
 
@@ -42,7 +42,7 @@ void printArray(char* string, int size)
 	printf("\n");
 }
 
-void fillRandArray(char* string, int size)
+void fillRandArray(int* array, int size)
 {
 	int i;
 
