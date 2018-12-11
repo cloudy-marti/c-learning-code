@@ -54,12 +54,6 @@ int main(int argc, char* argv[])
 	
 	printf("The array is the following :\n");
 
-	/*for(i = 0; i < size; i++)
-	{
-		array[i] = i*3;
-		printf("%d ", array[i]);
-	}*/
-
 	fillRandArray(array, size);
 	printArray(array, size);
 
@@ -74,24 +68,10 @@ int main(int argc, char* argv[])
 	fillRandArray(array, size);
 	printArray(array, size);
 
-	/*for(i = 0; i < size; i++)
-	{
-		array[i] = rand()%50;
-		printf("%d ", array[i]);
-	}
-
-	printf("\n");*/
-
 	bubbleSort(array, size);
 
 	printf("final result :\n");
 	printArray(array, size);
-	/*for(i = 0; i < size; i++)
-	{
-		printf("%d ", array[i]);
-	}
-
-	printf("\n");*/
 
 	return EXIT_SUCCESS;
 }
