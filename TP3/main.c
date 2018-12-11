@@ -60,7 +60,7 @@ int main(int argc, char* argv[])
 	printf("optimised recursive power function\n%d^%d = %d\n", a, b, res);
 
 	/* ------------ EX2 ------------ */
-	char* string;
+	char string[256];
 
 	printf("\nLorem ipsum dolor sit amet, consectetur adipiscing elit,\nsed do eiusmod tempor incididunt ut labore\net dolore magna aliqua\n\n");
 	wCount("Lorem ipsum dolor sit amet, consectetur adipiscing elit,\nsed do eiusmod tempor incididunt ut labore\net dolore magna aliqua");

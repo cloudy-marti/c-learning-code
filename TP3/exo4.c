@@ -12,7 +12,7 @@ int binarySearch(int* tab, int min, int max, int nb)
 			return nb;
 		}else{
 			printf("number %d is not in this array ...\n", nb);
-			return -1;x
+			return -1;
 		}
 	}
 
