@@ -4,31 +4,37 @@
 #include <time.h>
 #include <math.h>
 
+#include "headers/exo1.h"
+#include "headers/exo2.h"
+#include "headers/exo3.h"
+#include "headers/exo4.h"
+#include "headers/exo5.h"
+
 /* --- FUNCTION DECLARATIONS --- */
 
 /* ------------ EX1 ------------ */
-int power(int a, int n);
+/*int power(int a, int n);
 int recPower(int a, int n);
-int recOptiPower(int a, int n);
+int recOptiPower(int a, int n);*/
 
 /* ------------ EX2 ------------ */
-void wCount(char* string);
-
+/*void wCount(char* string);
+*/
 /* ------------ EX3 ------------ */
-int checkstring(char* string);
+/*int checkstring(char* string);
 void to10(char* string);
 void to26(char* string);
 void mirror(char* string);
-void conversion(char* string);
+void conversion(char* string);*/
 
 /* ------------ EX4 ------------ */
-int binarySearch(int* tab, int min, int max, int nb);
-
+/*int binarySearch(int* tab, int min, int max, int nb);
+*/
 /* ------------ EX5 ------------ */
-void bubbleSort(int* tab, int size);
+/*void bubbleSort(int* tab, int size);
 
-/* -- GLOBAL FUNCTION DEFINITION -- */
-int main(int argc, char* argv[])
+ -- GLOBAL FUNCTION DEFINITION -- 
+int main(int argc, char* argv[])*/
 {
 	/* ------------ EX1 ------------ */
 	int a, b, res;
@@ -112,7 +118,7 @@ int main(int argc, char* argv[])
 /* --- LOCAL FUNCTION DEFINITIONS --- */
 
 /* ------------ EX1 ------------ */
-int power(int a, int n)
+/*int power(int a, int n)
 {
 	int i;
 	int res = 1;
@@ -164,10 +170,10 @@ int recOptiPower(int a, int n)
 			return (a*recOptiPower(a, n-1));
 		}
 	}
-}
+}*/
 
 /* ------------ EX2 ------------ */
-void wCount(char* string)
+/*void wCount(char* string)
 {
 	int i, word, line;
 	i = word = line = 0;
@@ -184,11 +190,11 @@ void wCount(char* string)
 	}
 
 	printf("in the text above we have :\n- %d characters\n- %d words\n- %d lines\n\n", i, word, line + 1);
-}
+}*/
 
 /* ------------ EX3 ------------ */
 
-int checkstring(char* string)
+/*int checkstring(char* string)
 {
 	int i, tmp;
 
@@ -304,11 +310,11 @@ void conversion(char* string)
 	}else{
 		printf("wrong string you dummie ...\n");
 	}
-}
+}*/
 
 /* ------------ EX4 ------------ */
 
-int binarySearch(int* tab, int min, int max, int nb)
+/*int binarySearch(int* tab, int min, int max, int nb)
 {
 	int i, mid;
 
@@ -335,11 +341,11 @@ int binarySearch(int* tab, int min, int max, int nb)
 			return binarySearch(tab, min, mid, nb);
 		}
 	}
-}
+}*/
 
 /* ------------ EX5 ------------ */
 
-void bubbleSort(int* tab, int size)
+/*void bubbleSort(int* tab, int size)
 {
 	int i, j, tmp, oriSize;
 	oriSize = size;
@@ -357,4 +363,4 @@ void bubbleSort(int* tab, int size)
 		}
 		size--;
 	}
-}
+}*/
