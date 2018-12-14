@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 /* Function declaration */
 int* allocate_integer_array(int size);
@@ -21,10 +22,68 @@ int* merge_sorted_arrays(int* first, int* second);
 void split_arrays(int* array, int** first, int** second);
 int* merge_sort(int* array);
 
+/* exercice 5 from tp3 for testing */
+void bubbleSort(int* tab, int size);
+
 /* An empty main to test the compilation of the allocation and free
 functions. */
 int main(int argc, char* argv[])
 {
+    int* array;
+    array = fill_array();
+    int size = array_size(array);
+    printf("the size of your array = %d\n", size);
+    print_array(array);
+
+    int arrSize = size;
+
+    int* sameArray;
+    sameArray = copy_array(array);
+    size = array_size(sameArray);
+    printf("\ncopying array ...\n");
+    printf("the size of your new array = %d\n", size);
+    print_array(sameArray);
+
+    int test;
+    test = are_arrays_equal(array, sameArray);
+
+    if(test == 1)
+    {
+        printf("arrays are equal\n");
+    }else{
+        printf("arrays are NOT equal\n");
+    }
+
+    int* randArray;
+    randArray = random_array(size, 50);
+    int randSize = array_size(randArray);
+    printf("the size of your array = %d\n", randSize);
+    print_array(randArray);
+
+    test = are_arrays_equal(array, randArray);
+
+    if(test == 1)
+    {
+        printf("arrays are equal\n");
+    }else{
+        printf("arrays are NOT equal\n");
+    }
+
+    int* concatArray;
+    concatArray = concat_array(array, randArray);
+    size = array_size(concatArray);
+    printf("the size of your array = %d\n", size);
+    print_array(concatArray);
+
+    printf("sorting arrays ...\n");
+    bubbleSort(array, arrSize);
+    print_array(array);
+    bubbleSort(randArray, randSize);
+    print_array(randArray);
+
+    int* mergedArr = merge_sorted_arrays(array, randArray);
+    print_array(mergedArr);
+
     return 0;
 }
 
@@ -57,8 +116,9 @@ void free_integer_array(int* tab)
 int array_size(int* array)
 {
     int i, counter;
+    counter = 0;
 
-    for(i = 0; array[i] = -1; i++)
+    for(i = 0; array[i] != -1; i++)
     {
         counter++;
     }
@@ -81,11 +141,11 @@ void print_array(int* array)
 
 int are_arrays_equal(int* first, int* second)
 {
-    int i, test;
+    int i;
 
     for(i = 0; first[i] != -1; i++)
     {
-        if(first[i] =! second[i])
+        if(first[i] != second[i])
         {
             return 0;
         }
@@ -107,7 +167,8 @@ int* copy_array(int* array)
     {
         newArray[i] = array[i];
     }
-    newArray[i+1] = -1;
+
+    newArray[size] = -1;
 
     return newArray;
 }
@@ -131,7 +192,7 @@ int* fill_array(void)
     	array[i] = nb;
     }
 
-    array[i+1] = -1;
+    array[size] = -1;
 
     return array;
 }
@@ -143,7 +204,7 @@ int* random_array(int size, int max_entry)
 	int* randArray;
 	randArray = allocate_integer_array(size);
 
-	srand(time(null));
+	srand(time(NULL));
 
 	for(i = 0; i < size; i++)
 	{
@@ -151,7 +212,7 @@ int* random_array(int size, int max_entry)
 		randArray[i] = nb;
 	}
 
-	randArray[i+1] = -1;
+	randArray[size] = -1;
 
 	return randArray;
 }
@@ -164,11 +225,11 @@ int* concat_array(int* first, int* second)
 	firstSize = array_size(first);
 	secondSize = array_size(second);
 
-	totalSize = (firstSize + secondSize - 1);
+	totalSize = (firstSize + secondSize);
 
 	newArray = allocate_integer_array(totalSize);
 
-	for(i = 0; i < totalSize; i++)
+	for(i = 0; i <= totalSize; i++)
 	{
 		if(i < firstSize)
 		{
@@ -179,7 +240,7 @@ int* concat_array(int* first, int* second)
 		}
 	}
 
-	newArray[i+1] = -1;
+	newArray[totalSize] = -1;
 
 	return newArray;
 }
@@ -188,13 +249,25 @@ int* concat_array(int* first, int* second)
 int* merge_sorted_arrays(int* first, int* second)
 {
     int* newArray;
-    int size = array_size(first) + array_size(second) - 1;
+    int size = array_size(first) + array_size(second);
+    printf("size = %d\n", size);
 
-    int i, j;
+    newArray = allocate_integer_array(size);
+
+    int i;
 
     for(i = 0; i < size; i++)
     {
-        for(j = 0; j < size; j+2)
+        if(first[i] == second[i] || first[i] < second[i])
+        {
+            newArray[i] = first[i];
+            newArray[i+1] = second[i];
+        }else
+        {
+            newArray[i] = second[i];
+            newArray[i+1] = first[i];
+        }
+        /*for(j = 0; j < size; j+=2)
         {
             if(first[i] == second[i])
             {
@@ -209,10 +282,10 @@ int* merge_sorted_arrays(int* first, int* second)
                 newArray[j] = second[i];
                 newArray[j+1] = first[i];
             }
-        }
+        }*/
     }
 
-    newArray[i+1] = -1;
+    newArray[size] = -1;
 
     return newArray;
 }
@@ -254,19 +327,43 @@ void split_arrays(int* array, int** first, int** second)
     firstSize = size / 2;
     secondSize = size - firstSize;
 
+    *first = allocate_integer_array(firstSize);
+    *second = allocate_integer_array(secondSize);
+
     int i, j;
 
     for(i = 0; i < firstSize; i++)
     {
-        for(j = size - 1; size > secondSize; i--)
-        {
-            first[i] = array[i];
-            second[i] = array[j];
-        }
+        *first[i] = array[i];
+    }
+
+    for(j = secondSize; j < size; j++)
+    {
+        *second[i] = array[j];
     }
 }
 
 int* merge_sort(int* array)
 {
-    
+    return 0;   
+}
+
+void bubbleSort(int* tab, int size)
+{
+    int i, j, tmp, oriSize;
+    oriSize = size;
+
+    for(j = 1; j < oriSize; j++)
+    {
+        for(i = 0; i < size-1; i++)
+        {
+            if(tab[i] > tab[i+1])
+            {
+                tmp = tab[i];
+                tab[i] = tab[i+1];
+                tab[i+1] = tmp;
+            }
+        }
+        size--;
+    }
 }
