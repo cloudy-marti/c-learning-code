@@ -89,9 +89,12 @@ int main(int argc, char* argv[])
     print_array(randArray);
     print_array(sameArray);
 
+    printf("\nA random array of lenght 20 whose entries are lower than 100 : \n\n");
     int *newnewRand, *res;
-    newnewRand = random_array(30, 50);
+    newnewRand = random_array(20, 100);
     print_array(newnewRand);
+
+    printf("\nusing a merge sort, we get :\n");
 
     res = merge_sort(newnewRand);
     print_array(res);
@@ -367,7 +370,11 @@ int* merge_sort(int *array)
     }
     else
     {
+        printf("\nsplit array in two part :\n");
         split_arrays(array, &first, &second);
+        print_array(array);
+        print_array(first);
+        print_array(second);
 
         tmpFirst = merge_sort(first);
         tmpSecond = merge_sort(second);
@@ -375,7 +382,10 @@ int* merge_sort(int *array)
         free(first);
         free(second);
 
+        printf("\nmerge the two following ones :\n");
         newArray = merge_sorted_arrays(tmpFirst, tmpSecond);
+        print_array(tmpFirst);
+        print_array(tmpSecond);
     }
 
     return newArray;   
