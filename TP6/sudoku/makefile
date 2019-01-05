@@ -5,6 +5,12 @@ OBJ=sudoku.o main.o in_out.o
 
 sudoku: $(OBJ)
 	$(CC) -o sudoku $(OBJ) $(CFLAGS)
+	@echo "--------------------------------------------------------------"
+	@echo "             SUDOKU Solver - C programming TP6"
+	@echo "                       Emilie Marti"
+	@echo ""
+	@echo "                to execute type: ./sudoku"
+	@echo "--------------------------------------------------------------"
 
 main.o: main.c sudoku.h in_out.h
 	$(CC) -c main.c $(CFLAGS)

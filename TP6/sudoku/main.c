@@ -4,11 +4,22 @@
 #include "in_out.h"
 
 int main(int argc, char* argv[]){
-  Board B;
+	Board sudoku;
 
-  fread_board(argv[1], B);
+	fread_board(argv[1], sudoku);
+	print_board(sudoku);
 
-  print_board(B);
+	int tmp = sudoku_solver(sudoku, 0);
 
-  return 0;
+	if(tmp == 1)
+	{
+		print_board(sudoku);
+	}
+	else
+	{
+		printf("sudoku could not be solved\n");
+		print_board(sudoku);
+	}
+
+	return 0;
 }

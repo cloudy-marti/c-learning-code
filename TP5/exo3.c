@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include "headers/exo0.h"
+#include "headers/exo1.h"
 
 int* merge_sorted_arrays(int* first, int* second)
 {    
@@ -118,8 +120,8 @@ int* merge_sort(int *array)
         tmpFirst = merge_sort(first);
         tmpSecond = merge_sort(second);
 
-        free(first);
-        free(second);
+        free_integer_array(first);
+        free_integer_array(second);
 
         printf("\nmerge the two following ones :\n");
         newArray = merge_sorted_arrays(tmpFirst, tmpSecond);

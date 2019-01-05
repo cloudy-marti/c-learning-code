@@ -3,6 +3,8 @@
 
 void make_space(int n);
 int stack_adr(int n, int* height, int* start_adr);
+void permutations(int buffer[], int current, int max);
+void print_array(int buffer[], int size);
 
 int main(int argc, char* argv[])
 {
@@ -14,6 +16,10 @@ int main(int argc, char* argv[])
 	}
 
 	stack_adr(atoi(argv[1]), &i, &i);
+
+	int buffer[6] = {0};
+
+	permutations(buffer, 1, 6);
 
 	return 0;
 }
@@ -57,3 +63,47 @@ int stack_adr(int n, int* height, int* start_adr)
 	return p;
 }
 
+void permutations(int buffer[], int current, int max)
+{
+	int i;
+
+	if(current != 1)
+	{
+		for(i = 1; i < current; i++)
+		{
+			putchar('\t');
+		}
+		printf("--> ");
+	}
+	print_array(buffer, max);
+
+	if(current > max) return;
+	else
+	{
+		for(i = 0; i < max; i++)
+		{
+			if(buffer[i] == 0)
+			{
+				buffer[i] = current;
+				permutations(buffer, current+1, max);
+				buffer[i] = 0;
+			}
+		}
+	}
+}
+
+void print_array(int buffer[], int size)
+{
+	int i;
+
+	printf("[");
+	for(i = 0; i < size; i++)
+	{
+		if(i != 0)
+		{
+			printf(", ");
+		}
+		printf("%d", buffer[i]);
+	}
+	printf("]\n");
+}

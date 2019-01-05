@@ -1,4 +1,9 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+#include "headers/exo0.h"
+#include "headers/exo1.h"
 
 int* fill_array(void)
 {
