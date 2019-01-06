@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#include "sudoku.h"
+#include "headers/sudoku.h"
 
 void initialize_empty_board(Board grid)
 {
