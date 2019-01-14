@@ -14,6 +14,7 @@
 int main(int argc, char* argv[])
 {
 	/* ------------ EX1 ------------ */
+	printf("\n--------------- EX1 ----------------\n");
 	int a, b, res;
 
 	printf("enter two numbers please :\n");
@@ -37,17 +38,20 @@ int main(int argc, char* argv[])
 	printf("optimised recursive power function\n%d^%d = %d\n", a, b, res);
 
 	/* ------------ EX2 ------------ */
+	printf("\n--------------- EX2 ----------------\n");
 	char string[256];
 
 	printf("\nLorem ipsum dolor sit amet, consectetur adipiscing elit,\nsed do eiusmod tempor incididunt ut labore\net dolore magna aliqua\n\n");
 	wCount("Lorem ipsum dolor sit amet, consectetur adipiscing elit,\nsed do eiusmod tempor incididunt ut labore\net dolore magna aliqua");
 
 	/* ------------ EX3 ------------ */
+	printf("\n--------------- EX3 ----------------\n");
 	printf("enter a string without spaces please ...\n");
 	scanf("%s", string);
 	conversion(string);
 
 	/* ------------ EX4 ------------ */
+	printf("\n--------------- EX4 ----------------\n");
 	int nb, size;
 	size = 10;
 	int array[size];
@@ -63,6 +67,7 @@ int main(int argc, char* argv[])
 	binarySearch(array, 0, size, nb);
 
 	/* ------------ EX5 ------------ */
+	printf("\n--------------- EX5 ----------------\n");
 	srand(time(NULL));
 
 	fillRandArray(array, size);
@@ -70,7 +75,7 @@ int main(int argc, char* argv[])
 
 	bubbleSort(array, size);
 
-	printf("final result :\n");
+	printf("Sorted array with bubbleSort algorithm :\n");
 	printArray(array, size);
 
 	return EXIT_SUCCESS;
