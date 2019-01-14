@@ -29,6 +29,8 @@ int binarySearch(int* tab, int min, int max, int nb)
 			return binarySearch(tab, min, mid, nb);
 		}
 	}
+	
+	return nb;
 }
 
 void printArray(int* array, int size)

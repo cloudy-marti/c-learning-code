@@ -27,13 +27,13 @@ void game(Board sudoku)
         if(key == MLV_KEYBOARD_q) MLV_free_window();
 
         MLV_draw_text(10, 500, "mlv suck/s", MLV_COLOR_MAGENTA);
+        MLV_draw_text(10, 630, "click on the screen pls", MLV_COLOR_MAGENTA);
 
         display_board(sudoku, 9);
         display_board(sudoku, 3);
 
-        MLV_draw_text(10, 630, "click on the screen pls", MLV_COLOR_MAGENTA);
         
-        MLV_actualise_window();
+        
 
         int x, y;
         x = y = 0;
@@ -52,7 +52,22 @@ void game(Board sudoku)
         display_board(sudoku, 9);
         display_board(sudoku, 3);*/
 
-        MLV_actualise_window();
+        /*
+
+        etapes :
+        On affiche le board de debut
+            MLV_actualise_window
+        Le joueur clicke sur grid 9
+        grid 3 apparait
+            MLV_actualise_window
+        joueur click sur grid 3
+        Le coup est-t-il valide (pas d'incoherences)
+            oui -> MLV_actualise_window avec grid 9 mise a jour && grid 3 disparait
+            non -> MLV_actualise_window avec message d'erreur
+        
+
+        La boucle principale n'a pas MLV_actualise_window, mais les fonctions graphiques
+        */
     }
 }
 
@@ -63,13 +78,14 @@ void display_board(Board sudoku, int sudokuSize)
     if(sudokuSize == 9)
     {
         size = 486;
-        marginTop = marginLeft = (console_WIDTH-size)/4;
+        marginTop = 75;
+        marginLeft = 150;
     }
     else
     {
         size = 240;
-        marginTop = (console_WIDTH-480)/2;
-        marginLeft = (console_WIDTH-370);
+        marginTop = 200;
+        marginLeft = 750;
     }
 
     int shape = size/(sudokuSize);
@@ -79,20 +95,21 @@ void display_board(Board sudoku, int sudokuSize)
     {
         for(row = 0; row < size; row = row+shape)
         {
-            MLV_draw_rectangle(row+marginLeft, column+marginTop/2, shape, shape, MLV_COLOR_GREY);
+            MLV_draw_rectangle(row+marginLeft, column+marginTop, shape, shape, MLV_COLOR_GREY);
 
             if(sudokuSize == 9)
             {
-                write_number(sudoku[counter/sudokuSize][counter%sudokuSize], row+marginLeft+(shape/2), column+(marginTop/2)+(shape/2));
+                write_number(sudoku[counter/sudokuSize][counter%sudokuSize], row+marginLeft+shape/2, column+marginTop+shape/2);
                 counter++;
             }
             else
             {
                 counter++;
-                write_number(counter, row+marginLeft+(shape/2), column+(marginTop/2)+(shape/2));
+                write_number(counter, row+marginLeft+shape/2, column+marginTop+shape/2);
             }
         }
     }
+    MLV_actualise_window();
 }
 
 void write_number(int number, int x, int y)
