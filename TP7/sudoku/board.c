@@ -107,7 +107,7 @@ void write_number(int number, int x, int y)
 
 void quitGame()
 {
-    MLV_draw_text(600, 30, "you quit the game!\n", MLV_COLOR_MAGENTA,);
+    MLV_draw_text(600, 30, "you quit the game!\n", MLV_COLOR_MAGENTA);
     MLV_actualise_window();
 
     exit(0);
