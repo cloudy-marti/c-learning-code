@@ -28,10 +28,10 @@ int main(int argc, char* argv[])
 
 	char** stringArr = initialize_2D_array(x, y);
 
-	printf("---------------\n");
-
 	fill_2D_array(stringArr, x, y);
 	print_2D_array(stringArr, x, y);
+
+	free_2D_array(stringArr, x, y);
 
 	return 0;
 }

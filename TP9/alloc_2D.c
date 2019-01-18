@@ -46,7 +46,12 @@ void print_2D_array(char** array, int sizeX, int sizeY)
 }
 
 
-void free_2D_array(char** array, int sizeX)
+void free_2D_array(char** array, int sizeX, int sizeY)
 {
+	int i;
+	for(i = 0; i < sizeY; i++)
+		free(array[i]);
+
+	free(array);
 	
 }
