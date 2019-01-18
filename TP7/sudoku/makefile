@@ -1,4 +1,4 @@
-# Makefile TP 4 INFO1
+# Makefile TP 7 INFO1
 
 CC=gcc
 CFLAGS=-Wall -ansi -g

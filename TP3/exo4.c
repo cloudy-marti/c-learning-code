@@ -3,7 +3,9 @@
 
 int binarySearch(int* tab, int min, int max, int nb)
 {
-	int i, mid;
+	int mid;
+
+	if(min > max) return -1;
 
 	if(min == max)
 	{
@@ -11,7 +13,9 @@ int binarySearch(int* tab, int min, int max, int nb)
 		{
 			printf("number %d has been found on index %d.\n", nb, min);
 			return nb;
-		}else{
+		}
+		else
+		{
 			printf("number %d is not in this array ...\n", nb);
 			return -1;
 		}
@@ -19,16 +23,8 @@ int binarySearch(int* tab, int min, int max, int nb)
 
 	mid = (min + max) / 2;
 
-	for(i = min; i <= max; i++)
-	{
-		if(tab[mid] < nb)
-		{
-			return binarySearch(tab, mid+1, max, nb);
-		}else
-		{
-			return binarySearch(tab, min, mid, nb);
-		}
-	}
+	if(tab[mid] < nb) return binarySearch(tab, mid+1, max, nb);
+	else return binarySearch(tab, min, mid, nb);
 	
 	return nb;
 }
@@ -38,9 +34,7 @@ void printArray(int* array, int size)
 	int i;
 
 	for(i = 0; i < size; i++)
-	{
 		printf("%d ", array[i]);
-	}
 
 	printf("\n");
 }
@@ -50,9 +44,7 @@ void fillRandArray(int* array, int size)
 	int i;
 
 	for(i = 0; i < size; i++)
-	{
 		array[i] = rand()%50;
-	}
 
 	printf("\n");
 }

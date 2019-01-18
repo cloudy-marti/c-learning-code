@@ -5,7 +5,7 @@
 #include "headers/sudoku.h"
 #include "headers/input_manager.h"
 
-void game(Board sudoku)
+void game(Board sudoku, Board inGame, Board numPad)
 {
     MLV_Image *background;
     int bg_width, bg_height;
@@ -18,27 +18,24 @@ void game(Board sudoku)
 
     MLV_draw_image(background, 0, 0);
 
-    MLV_init_audio();
+    /*MLV_init_audio();*/
 
-    while(1)
+    while(1 /*la grille n'est pas complète*/)
     {
 
-        MLV_Keyboard_button key;
-        if(key == MLV_KEYBOARD_q) MLV_free_window();
+        /*MLV_Keyboard_button key = NULL;
+        if(key == MLV_KEYBOARD_q) MLV_free_window();*/
 
         MLV_draw_text(10, 500, "mlv suck/s", MLV_COLOR_MAGENTA);
         MLV_draw_text(10, 630, "click on the screen pls", MLV_COLOR_MAGENTA);
 
         display_board(sudoku, 9);
-        display_board(sudoku, 3);
-
-        
-        
+        /*display_board(sudoku, 3);*/
 
         int x, y;
         x = y = 0;
 
-        get_input(x, y);
+        get_input(sudoku, inGame, numPad, x, y);
 
         MLV_actualise_window();
 
@@ -109,11 +106,14 @@ void display_board(Board sudoku, int sudokuSize)
             }
         }
     }
+
     MLV_actualise_window();
 }
 
 void write_number(int number, int x, int y)
 {
+    if(number == 0) return;
+
     char number_MLV[2];
 
     number_MLV[0] = number + '0';

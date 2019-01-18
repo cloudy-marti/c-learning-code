@@ -51,6 +51,8 @@ int main(int argc, char* argv[])
 	conversion(string);
 
 	/* ------------ EX4 ------------ */
+	srand(time(NULL));
+	
 	printf("\n--------------- EX4 ----------------\n");
 	int nb, size;
 	size = 10;
@@ -64,11 +66,12 @@ int main(int argc, char* argv[])
 	printf("please choose an integer\n");
 	scanf("%d", &nb);
 
+	bubbleSort(array, size);
+
 	binarySearch(array, 0, size, nb);
 
 	/* ------------ EX5 ------------ */
 	printf("\n--------------- EX5 ----------------\n");
-	srand(time(NULL));
 
 	fillRandArray(array, size);
 	printArray(array, size);

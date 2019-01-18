@@ -6,7 +6,7 @@
 
 #include "sudoku.h"
 
-void game(Board sudoku);
+void game(Board sudoku, Board inGame, Board numPad);
 void display_board(Board sudoku, int sudokuSize);
 void write_number(int number, int x, int y);
 

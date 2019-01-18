@@ -17,14 +17,3 @@ tp3: $(OBJ)
 
 clean:
 	rm -f *.o
-
-# CFLAGS = -g -Wall
-# FILE = game.c board.c playerManagerV2.c turnManager.c unitManager.c
-
-# all: projetC
-
-# projetC: 
-# 	gcc $(FILE) $(CFLAGS) -o Game
-
-# tp3: $(OBJ)
-# 	$(CC) -c main.c -o TP3 $(OBJ) $(CFLAGS)

@@ -8,15 +8,9 @@ int checkstring(char* string)
 {
 	int i, tmp;
 
-	if(string[0] >= 'a' && string[0] <= 'z')
-	{
-		tmp = 1;
-	}else if(string[0] >= '0' && string[0] <= '9')
-	{
-		tmp = 0;
-	}else{
-		tmp = -1;
-	}
+	if(string[0] >= 'a' && string[0] <= 'z') tmp = 1;
+	else if(string[0] >= '0' && string[0] <= '9') tmp = 0;
+	else tmp = -1;
 
 	for(i = 0; i != '\0'; i++)
 	{
@@ -27,15 +21,16 @@ int checkstring(char* string)
 				printf("%c is not a letter\n", string[i]);
 				return -1;
 			}
-		}else if(tmp == 0)
+		}
+		else if(tmp == 0)
 		{
 			if(string[i] < '0' || string[i] > '9')
 			{
 				printf("%c is not a number\n", string[i]);
 				return -1;
 			}
-		}else
-			return -1;	
+		}
+		else return -1;	
 	}
 
 	return tmp;
@@ -60,7 +55,9 @@ void to10(char* string)
 			printf("invalid string ...\n");
 			return;
 
-		}else{
+		}
+		else
+		{
 			printf("26^%d = %d\n", pow, recOptiPower(26, pow));
 			res += nb * recOptiPower(26, pow);
 		}
@@ -80,7 +77,7 @@ void to26(char* string)
 
 	while(nb > 0)
 	{
-		res[i] += 'a'+nb%26;
+		res[i] = 'a'+nb%26;
 		nb /= 26;
 		i++;
 	}
@@ -96,9 +93,8 @@ void mirror(char* string)
 	lenght = strlen(string) - 1;
 
 	for(i = lenght; i >= 0; i--)
-	{
 		printf("%c", string[i]);
-	}
+	
 	printf("\n");
 }
 
@@ -112,7 +108,8 @@ void conversion(char* string)
 		printf("entering base 26 to 10\n");
 		to10(string);
 
-	}else if(tmp == 0)
+	}
+	else if(tmp == 0)
 	{
 		printf("entering base 10 to 26\n");
 		to26(string);

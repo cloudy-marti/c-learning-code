@@ -4,5 +4,6 @@
 #include "sudoku.h"
 
 int fread_board(const char* file, Board board);
+void fill_numeric_pad(Board pad);
 
 #endif

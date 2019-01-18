@@ -9,16 +9,15 @@
 
 int main(int argc, char* argv[])
 {
-	Board sudoku;
+	Board sudoku, inGame, numPad;
 
 	fread_board(argv[1], sudoku);
-	print_board(sudoku);
+	fread_board(argv[1], inGame);
+	fill_numeric_pad(numPad);
 
-	game(sudoku);
+	print_board(inGame);
 
-	MLV_Keyboard_button key;
-	MLV_wait_keyboard(&key, NULL, NULL);
-	if(key == MLV_KEYBOARD_q) MLV_free_window();
+	game(sudoku, inGame, numPad);
 
 	return 0;
 }

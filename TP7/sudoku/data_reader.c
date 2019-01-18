@@ -24,3 +24,16 @@ int fread_board(const char* file, Board board){
 	}
 	return 1;
 }
+
+void fill_numeric_pad(Board pad)
+{
+	int row, column, counter;
+	counter = 0;
+
+	for(row = 0; row < 3; row++)
+		for(column = 0; column < 3; column++)
+		{
+			counter++;
+			pad[row][column] = counter;
+		}
+}
