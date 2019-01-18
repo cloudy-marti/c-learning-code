@@ -36,19 +36,20 @@ void trigger_color()
 
 }
 
-int get_box_clicked(Board sudoku, Board inGame, Board numPad/*, Board* nb 123456789*/, int x, int y)
+int get_box_clicked(Board sudoku, Board inGame, Board numPad, int x, int y)
 {
 	int position = get_position(x, y, 9);
 
 	int row = position/9;
-	int column = position%9;
+	int column = position - row;
+
+	printf("sudoku[%d][%d] = %d\n", row, column, sudoku[row][column]);
 	
 	if(sudoku[row][column] == 0)
 	{
 		int x2, y2, nbBox;
 
 		display_board(numPad, 3);
-		MLV_actualise_window();
 
 		MLV_wait_mouse(&x2, &y2);
 		nbBox = get_position(x2, y2, 3);
@@ -58,7 +59,12 @@ int get_box_clicked(Board sudoku, Board inGame, Board numPad/*, Board* nb 123456
 
 		int chosenNum = numPad[row2][column2];
 
-		if(is_safe(inGame, row, column, chosenNum)) inGame[row][column] = chosenNum;
+		if(is_safe(inGame, row, column, chosenNum))
+		{
+			inGame[row][column] = chosenNum;
+			print_board(inGame);
+			display_board(inGame, 9);
+		}
 		else return -1;
 		/*get box clicked on grig 3*/
 
@@ -69,6 +75,8 @@ int get_box_clicked(Board sudoku, Board inGame, Board numPad/*, Board* nb 123456
 	{
 
 	}
+
+	display_board(inGame, 9);
 
 	return position;
 }
