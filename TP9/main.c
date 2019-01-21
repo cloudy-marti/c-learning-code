@@ -23,8 +23,8 @@ int main(int argc, char* argv[])
 
 	printf("-------------------------------------\n\n");
 
-	int x = 18;
-	int y = 36;
+	int x = 36;
+	int y = 18;
 
 	char** stringArr = initialize_2D_array(x, y);
 

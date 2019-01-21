@@ -9,8 +9,8 @@ char** initialize_2D_array(int sizeX, int sizeY)
 
 	int i;
 
-	for(i = 0; i < sizeY; i++)
-		array[i] = (char*)malloc(sizeof(char)*sizeX);
+	for(i = 0; i < sizeY; ++i)
+		array[i] = (char*)malloc((sizeof(char)*sizeX));
 
 	return array;
 }
@@ -21,8 +21,8 @@ void fill_2D_array(char** array, int sizeX, int sizeY)
 
 	int counter = 0;
 
-	for(i = 0; i < sizeX; i++)
-		for(j = 0; j < sizeY; j++)
+	for(i = 0; i < sizeY; ++i)
+		for(j = 0; j < sizeX; ++j)
 		{
 			if(counter >= 26) counter -= 26;
 
@@ -35,9 +35,9 @@ void print_2D_array(char** array, int sizeX, int sizeY)
 {
 	int i, j;
 
-	for(i = 0; i < sizeX; i++)
+	for(i = 0; i < sizeY; ++i)
 	{
-		for(j = 0; j < sizeY; j++)
+		for(j = 0; j < sizeX; ++j)
 			printf("%c ", array[i][j]);
 
 		printf("\n");
@@ -49,7 +49,7 @@ void print_2D_array(char** array, int sizeX, int sizeY)
 void free_2D_array(char** array, int sizeX, int sizeY)
 {
 	int i;
-	for(i = 0; i < sizeY; i++)
+	for(i = 0; i < sizeY; ++i)
 		free(array[i]);
 
 	free(array);
