@@ -3,6 +3,7 @@
 
 #include "headers/firsts_steps.h"
 #include "headers/alloc_2D.h"
+#include "headers/alloc_arg.h"
 
 int main(int argc, char* argv[])
 {
@@ -12,7 +13,8 @@ int main(int argc, char* argv[])
 		return -1;
 	}
 
-	int size = atoi(argv[1]);
+
+	/*int size = atoi(argv[1]);
 
 	int* array = initialize_integer_array(size);
 
@@ -23,15 +25,20 @@ int main(int argc, char* argv[])
 
 	printf("-------------------------------------\n\n");
 
-	int x = 36;
-	int y = 18;
+	int x = 18;
+	int y = 12;
 
 	char** stringArr = initialize_2D_array(x, y);
 
 	fill_2D_array(stringArr, x, y);
 	print_2D_array(stringArr, x, y);
 
-	free_2D_array(stringArr, x, y);
+	free_2D_array(stringArr, x, y);*/
+
+	char** argArray = initialize_arg_array(argc, argv);
+	fill_arg_array(argc, argv, argArray);
+	print_arg_array(argc, argArray);
+	free_arg_array(argc, argArray);
 
 	return 0;
 }

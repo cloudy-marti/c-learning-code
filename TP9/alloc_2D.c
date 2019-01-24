@@ -24,6 +24,7 @@ void fill_2D_array(char** array, int sizeX, int sizeY)
 	for(i = 0; i < sizeY; ++i)
 		for(j = 0; j < sizeX; ++j)
 		{
+			if(j == 0) counter = i;
 			if(counter >= 26) counter -= 26;
 
 			array[i][j] = 'a' + counter;
@@ -49,6 +50,7 @@ void print_2D_array(char** array, int sizeX, int sizeY)
 void free_2D_array(char** array, int sizeX, int sizeY)
 {
 	int i;
+	
 	for(i = 0; i < sizeY; ++i)
 		free(array[i]);
 
