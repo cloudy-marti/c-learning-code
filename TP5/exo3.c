@@ -15,18 +15,9 @@ int* merge_sorted_arrays(int* first, int* second)
 
     mergedArr = allocate_integer_array(totalSize);
 
-    if(first == NULL)
-    {
-        return second;
-    }
-    else if(second == NULL)
-    {
-        return first;
-    }
-    else if(first == NULL || second == NULL)
-    {
-        return NULL;
-    }
+    if(first == NULL) return second;
+    else if(second == NULL) return first;
+    else if(first == NULL || second == NULL) return NULL;
     else
     {
         for (i = 0; i < totalSize; i++)
@@ -76,30 +67,21 @@ void split_arrays(int* array, int** first, int** second)
 
     for(i = 0; i < size; i++)
     {
-        if(i < firstSize)
-        {
-            (*first)[i] = array[i];
-        }
-        else
-        {
-            (*second)[i - firstSize] = array[i];
-        }
+        if(i < firstSize) (*first)[i] = array[i];
+        else (*second)[i - firstSize] = array[i];
     }
 
     (*first)[firstSize] = -1;
     (*second)[secondSize] = -1;
 }
 
-int* merge_sort(int *array)
+int* merge_sort(int* array)
 {
     int *newArray;
     int *first, *second, *tmpFirst, *tmpSecond;
     int size = array_size(array);
     
-    if(array == NULL)
-    {
-        return NULL;
-    }
+    if(array == NULL) return NULL;
     else if(size == 1)
     {
         newArray = allocate_integer_array(size);

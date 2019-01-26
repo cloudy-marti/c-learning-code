@@ -11,7 +11,7 @@ int binarySearch(int* tab, int min, int max, int nb)
 	{
 		if(tab[min] == nb)
 		{
-			printf("number %d has been found on index %d.\n", nb, min);
+			printf("number %d has been found !\n", nb);
 			return nb;
 		}
 		else

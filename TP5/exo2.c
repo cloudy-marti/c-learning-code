@@ -62,13 +62,8 @@ int* concat_array(int* first, int* second)
 
 	for(i = 0; i <= totalSize; i++)
 	{
-		if(i < firstSize)
-		{
-			newArray[i] = first[i];
-		}else
-		{
-			newArray[i] = second[i-firstSize];
-		}
+		if(i < firstSize) newArray[i] = first[i];
+		else newArray[i] = second[i-firstSize];
 	}
 
 	newArray[totalSize] = -1;

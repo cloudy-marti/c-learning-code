@@ -9,6 +9,7 @@
 
 int main(int argc, char* argv[])
 {
+    printf("\n--------------- Exercice 1 ---------------\n\n");
     int* array;
     array = fill_array();
     int size = array_size(array);
@@ -27,12 +28,10 @@ int main(int argc, char* argv[])
     int test;
     test = are_arrays_equal(array, sameArray);
 
-    if(test == 1)
-    {
-        printf("arrays are equal\n");
-    }else{
-        printf("arrays are NOT equal\n");
-    }
+    if(test == 1) printf("arrays are equal\n");
+    else printf("arrays are NOT equal\n");
+
+    printf("\n--------------- Exercice 2 ---------------\n\n");
 
     int* randArray;
     randArray = random_array(size, 50);
@@ -42,18 +41,16 @@ int main(int argc, char* argv[])
 
     test = are_arrays_equal(array, randArray);
 
-    if(test == 1)
-    {
-        printf("arrays are equal\n");
-    }else{
-        printf("arrays are NOT equal\n");
-    }
+    if(test == 1) printf("arrays are equal\n");
+    else printf("arrays are NOT equal\n");
 
     int* concatArray;
     concatArray = concat_array(array, randArray);
     size = array_size(concatArray);
     printf("the size of your array = %d\n", size);
     print_array(concatArray);
+
+    printf("\n--------------- Exercice 3 ---------------\n\n");
 
     printf("sorting arrays ...\n");
     bubbleSort(array, arrSize);
