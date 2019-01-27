@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#include "in_out.h"
+#include "headers/in_out.h"
 
 int fread_board(const char* file, Board board){
 	FILE* f;

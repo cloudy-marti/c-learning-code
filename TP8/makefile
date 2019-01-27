@@ -1,7 +1,7 @@
 # Makefile TP 8 INFO1
 
 CC = gcc
-CFLAGS = -Wall -ansi -g
+CFLAGS = -Wall -ansi
 OBJ = syracuse.o main.o
 
 all : tp8 clean

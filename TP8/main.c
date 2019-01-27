@@ -32,5 +32,7 @@ int main(int argc, char* argv[])
 
 	printf("\noptimised fly = %li\n\n", optiFly);
 
+	free(cache);
+
 	return 0;
 }

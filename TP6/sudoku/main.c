@@ -1,7 +1,7 @@
 #include <stdio.h>
 
-#include "sudoku.h"
-#include "in_out.h"
+#include "headers/sudoku.h"
+#include "headers/in_out.h"
 
 int main(int argc, char* argv[]){
 	Board sudoku;
@@ -11,10 +11,7 @@ int main(int argc, char* argv[]){
 
 	int tmp = sudoku_solver(sudoku, 0);
 
-	if(tmp == 1)
-	{
-		print_board(sudoku);
-	}
+	if(tmp == 1) print_board(sudoku);
 	else
 	{
 		printf("sudoku could not be solved\n");

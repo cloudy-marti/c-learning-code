@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#include "sudoku.h"
+#include "headers/sudoku.h"
 
 void initialize_empty_board(Board grid)
 {
@@ -43,7 +43,8 @@ int sudoku_solver(Board grid, int position)
 	row = position/9;
 	column = position%9;
 
-	if(position == 81) return 1;
+	if(position == 81)
+		return 1;
 	if(grid[row][column] != 0) return sudoku_solver(grid, position+1);
 
 	for(num = 1; num <= 9; num++)

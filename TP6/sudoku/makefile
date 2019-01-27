@@ -12,13 +12,13 @@ sudoku: $(OBJ)
 	@echo "                to execute type: ./sudoku"
 	@echo "--------------------------------------------------------------"
 
-main.o: main.c sudoku.h in_out.h
+main.o: main.c
 	$(CC) -c main.c $(CFLAGS)
 
-sudoku.o: sudoku.c sudoku.h
+sudoku.o: sudoku.c 
 	$(CC) -c sudoku.c $(CFLAGS)
 
-in_out.o: in_out.c in_out.h
+in_out.o: in_out.c 
 	$(CC) -c in_out.c $(CFLAGS)
 
 clean: 
