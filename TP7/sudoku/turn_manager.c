@@ -5,6 +5,7 @@
 #include "headers/sudoku.h"
 #include "headers/input_manager.h"
 #include "headers/data_reader.h"
+#include "headers/turn_manager.h"
 
 void game(Board* sudoku, Board* inGameSudoku, Board* numPad)
 {
@@ -28,6 +29,10 @@ void game(Board* sudoku, Board* inGameSudoku, Board* numPad)
         display_board(inGameSudoku, 9);
         
         MLV_actualise_window();
+
+        /* Check if the in-game board is full */
+        if(inGameSudoku->empty_counter == 0)
+            quit_game();
 
         /* Get the player's input on the in-game board */
         position = get_input(sudokuSize);
@@ -65,9 +70,17 @@ void game(Board* sudoku, Board* inGameSudoku, Board* numPad)
                 padRow = padPosition / numSize;
                 padColumn = padPosition - padRow*numSize;
 
-                /* If the number chosen is safe, it is added to the in-game board */
+                /* If the number chosen is safe */
                 if(is_safe(inGameSudoku, column, row, numPad->board[padColumn][padRow]))
+                {
+                    /* If the case was empty before, decrease the empty counter */
+                    if(inGameSudoku->board[column][row] == 0)
+                        inGameSudoku->empty_counter--;
+
+                    /* Add the chosen number to the in-game board */
                     inGameSudoku->board[column][row] = numPad->board[padColumn][padRow];
+                    
+                }
             }
         }
 

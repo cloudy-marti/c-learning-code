@@ -20,6 +20,9 @@ int fread_board(const char* file, Board* board){
 		{
 			fscanf(f, "%d", &entry);
 			board->board[row][column] = entry;
+
+			if(entry > 0)
+				board->empty_counter--;
 		}
 	}
 	return 1;

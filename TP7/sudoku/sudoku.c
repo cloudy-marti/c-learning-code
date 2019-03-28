@@ -5,7 +5,7 @@
 
 Board* initialize_board(int sudokuSize)
 {
-	Board* board = (Board*)malloc(sizeof(board));
+	Board* board = (Board*)malloc(sizeof(Board));
 
 	board->empty_counter = sudokuSize*sudokuSize;
 

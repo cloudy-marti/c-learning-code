@@ -15,7 +15,6 @@ int main(int argc, char* argv[])
 	sudoku = initialize_board(9);
 	inGame = initialize_board(9);
 	numPad = initialize_board(3);
-	printf("hello\n");
 
 	initialize_empty_board(sudoku, 9);
 	initialize_empty_board(inGame, 9);
