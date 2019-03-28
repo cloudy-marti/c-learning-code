@@ -2,7 +2,7 @@
 
 #include "headers/data_reader.h"
 
-int fread_board(const char* file, Board board){
+int fread_board(const char* file, Board* board){
 	FILE* f;
 	int row, column;
 	int entry;
@@ -19,13 +19,13 @@ int fread_board(const char* file, Board board){
 		for (column = 0; column < 9; column++)
 		{
 			fscanf(f, "%d", &entry);
-			board[row][column] = entry;
+			board->board[row][column] = entry;
 		}
 	}
 	return 1;
 }
 
-void fill_numeric_pad(Board pad)
+void fill_numeric_pad(Board* pad)
 {
 	int row, column, counter;
 	counter = 0;
@@ -34,6 +34,6 @@ void fill_numeric_pad(Board pad)
 		for(column = 0; column < 3; column++)
 		{
 			counter++;
-			pad[row][column] = counter;
+			pad->board[row][column] = counter;
 		}
 }

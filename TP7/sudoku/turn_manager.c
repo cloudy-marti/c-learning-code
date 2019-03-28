@@ -6,15 +6,14 @@
 #include "headers/input_manager.h"
 #include "headers/data_reader.h"
 
-void game(Board sudoku, Board inGameSudoku, Board numPad)
+void game(Board* sudoku, Board* inGameSudoku, Board* numPad)
 {
-    int sudokuSize, numSize, position, padPosition;
+    int sudokuSize, numSize;
+    int position, padPosition;
+    int row, column, padRow, padColumn;
 
     sudokuSize = 9;
     numSize = 3;
-    
-    /* Solve the Sudoku in order to check if user input is OK */
-    sudoku_solver(sudoku, 0);
 
     /* Create numeric pad */
     fill_numeric_pad(numPad);
@@ -24,54 +23,59 @@ void game(Board sudoku, Board inGameSudoku, Board numPad)
 
     while(1)
     {
-        /* Step 1 : Display the inGame board */
+        /* Display the background and the inGame board */
         display_background();
         display_board(inGameSudoku, 9);
         
         MLV_actualise_window();
 
+        /* Get the player's input on the in-game board */
         position = get_input(sudokuSize);
 
+        row = position / sudokuSize;
+        column = position - row*sudokuSize;
+
+        /* If player clicks out of the board */
         if(position == -1)
         {
+            /* Keep waiting for next move */
             MLV_draw_text(600, 30, "out of the board ...\n", MLV_COLOR_MAGENTA);
+            MLV_actualise_window();
+        }
+        /* If player clicks on an unchangeable case */
+        else if(sudoku->board[column][row] != 0)
+        {
+            /* Keep waiting for next move */
+            MLV_draw_text(600, 30, "cannot change value ...\n", MLV_COLOR_MAGENTA);
             MLV_actualise_window();
         }
         else
         {
-            padPosition = get_input(numSize);
+            padPosition = -1;
             
             while(padPosition == -1)
             {
+                /* Display the numeric pad */
                 display_board(numPad, 3);
                 MLV_actualise_window();
+                
+                /* Get the player's input on the numeric pad */
                 padPosition = get_input(numSize);
+
+                padRow = padPosition / numSize;
+                padColumn = padPosition - padRow*numSize;
+
+                /* If the number chosen is safe, it is added to the in-game board */
+                if(is_safe(inGameSudoku, column, row, numPad->board[padColumn][padRow]))
+                    inGameSudoku->board[column][row] = numPad->board[padColumn][padRow];
             }
         }
 
-
-       /*
-        get input
-
-        etapes :
-        On affiche le board de debut
-            MLV_actualise_window
-        Le joueur clicke sur grid 9
-        grid 3 apparait
-            MLV_actualise_window
-        joueur click sur grid 3
-        Le coup est-t-il valide (pas d'incoherences)
-            oui -> MLV_actualise_window avec grid 9 mise a jour && grid 3 disparait
-            non -> MLV_actualise_window avec message d'erreur
-        
-
-        La boucle principale n'a pas MLV_actualise_window, mais les fonctions graphiques
-        */
         MLV_clear_window(MLV_COLOR_BLACK);
     }
 }
 
-void quitGame()
+void quit_game()
 {
     MLV_draw_text(600, 30, "you quit the game!\n", MLV_COLOR_MAGENTA);
     MLV_actualise_window();

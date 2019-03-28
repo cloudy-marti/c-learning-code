@@ -5,7 +5,20 @@
 #include "headers/sudoku.h"
 #include "headers/input_manager.h"
 
-void display_board(Board sudoku, int sudokuSize)
+void display_background()
+{
+    MLV_Image *background;
+    int bg_width, bg_height;
+
+    background = MLV_load_image("img/vapor.jpeg");
+
+    MLV_resize_image_with_proportions(background, console_WIDTH, console_HEIGHT);
+    MLV_get_image_size(background, &bg_width, &bg_height);
+
+    MLV_draw_image(background, 0, 0);
+}
+
+void display_board(Board* sudoku, int sudokuSize)
 {
     int row, column, size, marginTop, marginLeft;
 
@@ -33,7 +46,7 @@ void display_board(Board sudoku, int sudokuSize)
 
             if(sudokuSize == 9)
             {
-                write_number(sudoku[counter/sudokuSize][counter%sudokuSize], row+marginLeft+shape/2, column+marginTop+shape/2);
+                write_number(sudoku->board[counter/sudokuSize][counter%sudokuSize], row+marginLeft+shape/2, column+marginTop+shape/2);
                 counter++;
             }
             else
@@ -58,17 +71,4 @@ void write_number(int number, int x, int y)
     number_MLV[1] = '\0';
 
     MLV_draw_text(x, y, number_MLV, MLV_COLOR_GREY);
-}
-
-void display_background()
-{
-    MLV_Image *background;
-    int bg_width, bg_height;
-
-    background = MLV_load_image("img/vapor.jpeg");
-
-    MLV_resize_image_with_proportions(background, console_WIDTH, console_HEIGHT);
-    MLV_get_image_size(background, &bg_width, &bg_height);
-
-    MLV_draw_image(background, 0, 0);
 }

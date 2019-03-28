@@ -4,7 +4,7 @@
 #include "headers/sudoku.h"
 #include "headers/board.h"
 
-
+/* Gets player's input and return the position of the case clicked */
 int get_input(int sudokuSize)
 {
 	int x = 0;
@@ -13,21 +13,13 @@ int get_input(int sudokuSize)
 	int position = -1;
 
     MLV_wait_mouse(&x, &y);
-    position = get_box_clicked(x, y, sudokuSize);
+    position = get_position(x, y, sudokuSize);
 
     return position;
 }
 
-int get_box_clicked(int x, int y, int sudokuSize)
-{
-	int position = get_position(x, y, sudokuSize);
-
-	if(position == -1)
-		return -1;
-
-	return position;
-}
-
+/* Gets the position of the box from mouse_Y and mouse_Y */
+/* Returns -1 if sudokuSize is wrong (programmer's fault) or click is out of the board */
 int get_position(int x, int y, int sudokuSize)
 {
 	int marginTop, marginLeft, size;
@@ -50,10 +42,7 @@ int get_position(int x, int y, int sudokuSize)
 	int checkInput = input_in_board(x, y, size, marginTop, marginLeft);
 
 	if(!checkInput)
-	{
-		printf("not in board\n");
 		return -1;
-	}
 
 	int tmpX, tmpY;
 
@@ -67,11 +56,10 @@ int get_position(int x, int y, int sudokuSize)
 
 	int position = row*sudokuSize + column;
 
-	printf("position = %d\n", position);
-
 	return position;
 }
 
+/* Checks whether the click is inside the board or not */
 int input_in_board(int x, int y, int size, int marginTop, int marginLeft)
 {
 	if(x < marginLeft || x > marginLeft+size || y < marginTop || y > marginTop+size)
@@ -79,19 +67,3 @@ int input_in_board(int x, int y, int size, int marginTop, int marginLeft)
 	else
 		return 1;
 }
-/*
-int which_sudoku(int x, int y)
-{
-	if(x < 150 && x > 636 && y < 75 && y > 561)
-	{
-		return 9;
-		printf("inside main game board\n");
-	}
-	else if(x < 750 && x > 990 && y < 200 && y > 440)
-	{
-		return 3;
-		printf("inside numPad\n");
-	}
-	else
-		return -1;
-}*/
