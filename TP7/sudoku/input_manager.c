@@ -4,100 +4,56 @@
 #include "headers/sudoku.h"
 #include "headers/board.h"
 
-void get_input(Board sudoku, Board inGame, Board numPad, int x, int y)
+
+int get_input(int sudokuSize)
 {
-/*	MLV_Sound* sound;
+	int x = 0;
+	int y = 0;
 
-	sound = MLV_load_sound("sound/blip.ogg");
-*/
-    /*MLV_get_mouse_position(&x, &y);*/
-/*	MLV_wait_mouse(&x, &y);
+	int position = -1;
 
-    MLV_wait_mouse_position(&x, &y);*/
-
-    /* if clicked on indicator --> function_indicator
-    	else --> get box clicked*/
-
-    /*get_box_clicked(x, y, 3);*/
-
-/*    MLV_draw_text(400, 630, "mouse : (%d, %d)", MLV_COLOR_MAGENTA, x, y);
-*/
-	
-   /* MLV_draw_circle(x, y, 20, MLV_COLOR_MAGENTA);
-    MLV_play_sound(sound, 1.0);*/
     MLV_wait_mouse(&x, &y);
-    get_box_clicked(sudoku, inGame, numPad, x, y);
-    MLV_actualise_window();
-    
+    position = get_box_clicked(x, y, sudokuSize);
+
+    return position;
 }
 
-void trigger_color()
+int get_box_clicked(int x, int y, int sudokuSize)
 {
+	int position = get_position(x, y, sudokuSize);
 
-}
-
-int get_box_clicked(Board sudoku, Board inGame, Board numPad, int x, int y)
-{
-	int position = get_position(x, y, 9);
-
-	int row = position/9;
-	int column = position - row;
-
-	printf("sudoku[%d][%d] = %d\n", row, column, sudoku[row][column]);
-	
-	if(sudoku[row][column] == 0)
-	{
-		int x2, y2, nbBox;
-
-		display_board(numPad, 3);
-
-		MLV_wait_mouse(&x2, &y2);
-		nbBox = get_position(x2, y2, 3);
-
-		int row2 = nbBox/9;
-		int column2 = nbBox%9;
-
-		int chosenNum = numPad[row2][column2];
-
-		if(is_safe(inGame, row, column, chosenNum))
-		{
-			inGame[row][column] = chosenNum;
-			print_board(inGame);
-			display_board(inGame, 9);
-		}
-		else return -1;
-		/*get box clicked on grig 3*/
-
-		/*if(is_safe(sudoku, sudoku[x]row, sudoku[y], nb[x][y])) --> affecte la valeur a sudoku
-		else erreur :(*/
-	}
-	else
-	{
-
-	}
-
-	display_board(inGame, 9);
+	if(position == -1)
+		return -1;
 
 	return position;
 }
 
 int get_position(int x, int y, int sudokuSize)
 {
-	int marginTop, marginLeft, boxSize;
+	int marginTop, marginLeft, size;
 
 	if(sudokuSize == 9)
 	{
+		size = 486;
 		marginTop = 75;
 		marginLeft = 150;
-		boxSize = 54;
 	}
 	else if(sudokuSize == 3)
 	{
+		size = 240;
 		marginTop = 200;
 		marginLeft = 750;
-		boxSize = 80;
 	}
-	else return -1;
+	else
+		return -1;
+
+	int checkInput = input_in_board(x, y, size, marginTop, marginLeft);
+
+	if(!checkInput)
+	{
+		printf("not in board\n");
+		return -1;
+	}
 
 	int tmpX, tmpY;
 
@@ -106,10 +62,36 @@ int get_position(int x, int y, int sudokuSize)
 
 	int row, column;
 
-	row = tmpX / boxSize;
-	column = tmpY / boxSize;
+	row = tmpX / (size/sudokuSize);
+	column = tmpY / (size/sudokuSize);
 
-	int position = row*9 + column;
+	int position = row*sudokuSize + column;
+
+	printf("position = %d\n", position);
 
 	return position;
 }
+
+int input_in_board(int x, int y, int size, int marginTop, int marginLeft)
+{
+	if(x < marginLeft || x > marginLeft+size || y < marginTop || y > marginTop+size)
+		return 0;
+	else
+		return 1;
+}
+/*
+int which_sudoku(int x, int y)
+{
+	if(x < 150 && x > 636 && y < 75 && y > 561)
+	{
+		return 9;
+		printf("inside main game board\n");
+	}
+	else if(x < 750 && x > 990 && y < 200 && y > 440)
+	{
+		return 3;
+		printf("inside numPad\n");
+	}
+	else
+		return -1;
+}*/

@@ -2,7 +2,7 @@
 
 CC=gcc
 CFLAGS=-Wall -ansi -g
-OBJ=board.o input_manager.o main.o sudoku.o data_reader.o
+OBJ=board.o input_manager.o main.o sudoku.o data_reader.o turn_manager.o
 LDFLAGS=-lMLV -lm
 
 all : sudoku clean
@@ -21,6 +21,9 @@ board.o: board.c
 
 input_manager.o: input_manager.c
 	$(CC) -c input_manager.c -o input_manager.o $(CFLAGS) -lMLV
+
+turn_manager.o: turn_manager.c
+	$(CC) -c turn_manager.c -o turn_manager.o $(CFLAGS) -lMLV
 
 sudoku.o: sudoku.c
 	$(CC) -c sudoku.c $(CFLAGS)

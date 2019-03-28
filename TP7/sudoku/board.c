@@ -5,69 +5,6 @@
 #include "headers/sudoku.h"
 #include "headers/input_manager.h"
 
-void game(Board sudoku, Board inGame, Board numPad)
-{
-    MLV_Image *background;
-    int bg_width, bg_height;
-
-    MLV_create_window("ｓｕｄｏｋｕ　（よリ哀)", "background", console_WIDTH, console_HEIGHT);
-    background = MLV_load_image("img/vapor.jpeg");
-
-    MLV_resize_image_with_proportions(background, console_WIDTH, console_HEIGHT);
-    MLV_get_image_size(background, &bg_width, &bg_height);
-
-    MLV_draw_image(background, 0, 0);
-
-    /*MLV_init_audio();*/
-
-    while(1 /*la grille n'est pas complète*/)
-    {
-
-        /*MLV_Keyboard_button key = NULL;
-        if(key == MLV_KEYBOARD_q) MLV_free_window();*/
-
-        MLV_draw_text(10, 500, "mlv suck/s", MLV_COLOR_MAGENTA);
-        MLV_draw_text(10, 630, "click on the screen pls", MLV_COLOR_MAGENTA);
-
-        display_board(sudoku, 9);
-        /*display_board(sudoku, 3);*/
-
-        int x, y;
-        x = y = 0;
-
-        get_input(sudoku, inGame, numPad, x, y);
-
-        MLV_actualise_window();
-
-        MLV_wait_seconds(1);
-
-        MLV_clear_window(MLV_COLOR_BLACK);
-        MLV_draw_image(background, 0, 0);
-
-        /*sudoku_solver(sudoku, 0);
-
-        display_board(sudoku, 9);
-        display_board(sudoku, 3);*/
-
-        /*
-
-        etapes :
-        On affiche le board de debut
-            MLV_actualise_window
-        Le joueur clicke sur grid 9
-        grid 3 apparait
-            MLV_actualise_window
-        joueur click sur grid 3
-        Le coup est-t-il valide (pas d'incoherences)
-            oui -> MLV_actualise_window avec grid 9 mise a jour && grid 3 disparait
-            non -> MLV_actualise_window avec message d'erreur
-        
-
-        La boucle principale n'a pas MLV_actualise_window, mais les fonctions graphiques
-        */
-    }
-}
-
 void display_board(Board sudoku, int sudokuSize)
 {
     int row, column, size, marginTop, marginLeft;
@@ -112,7 +49,8 @@ void display_board(Board sudoku, int sudokuSize)
 
 void write_number(int number, int x, int y)
 {
-    if(number == 0) return;
+    if(number == 0)
+        return;
 
     char number_MLV[2];
 
@@ -122,10 +60,15 @@ void write_number(int number, int x, int y)
     MLV_draw_text(x, y, number_MLV, MLV_COLOR_GREY);
 }
 
-void quitGame()
+void display_background()
 {
-    MLV_draw_text(600, 30, "you quit the game!\n", MLV_COLOR_MAGENTA);
-    MLV_actualise_window();
+    MLV_Image *background;
+    int bg_width, bg_height;
 
-    exit(0);
+    background = MLV_load_image("img/vapor.jpeg");
+
+    MLV_resize_image_with_proportions(background, console_WIDTH, console_HEIGHT);
+    MLV_get_image_size(background, &bg_width, &bg_height);
+
+    MLV_draw_image(background, 0, 0);
 }

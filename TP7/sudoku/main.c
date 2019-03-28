@@ -6,6 +6,7 @@
 #include "headers/board.h"
 #include "headers/sudoku.h"
 #include "headers/data_reader.h"
+#include "headers/turn_manager.h"
 
 int main(int argc, char* argv[])
 {
@@ -13,9 +14,6 @@ int main(int argc, char* argv[])
 
 	fread_board(argv[1], sudoku);
 	fread_board(argv[1], inGame);
-	fill_numeric_pad(numPad);
-
-	print_board(inGame);
 
 	game(sudoku, inGame, numPad);
 

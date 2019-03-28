@@ -3,10 +3,12 @@
 
 #include "sudoku.h"
 
-void get_input(Board sudoku, Board inGame, Board numPad, int x, int y);
-int get_box_clicked(Board sudoku, Board inGame, Board numPad, int x, int y);
+/*void get_input(Board sudoku, Board inGame, Board numPad);
+int get_box_clicked(Board inGame, Board numPad, int x, int y);
+int get_position(int x, int y);*/
+int get_input(int sudokuSize);
+int get_box_clicked(int x, int y, int sudokuSize);
 int get_position(int x, int y, int sudokuSize);
-void trigger_color();
-
+int input_in_board(int x, int y, int size, int marginTop, int marginLeft);
 
 #endif
