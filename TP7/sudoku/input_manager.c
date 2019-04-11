@@ -3,6 +3,7 @@
 #include "headers/input_manager.h"
 #include "headers/sudoku.h"
 #include "headers/board.h"
+#include "headers/turn_manager.h"
 
 /* Gets player's input and return the position of the case clicked */
 int get_input(int sudokuSize)
@@ -10,8 +11,14 @@ int get_input(int sudokuSize)
 	int x = 0;
 	int y = 0;
 
+	if(MLV_get_keyboard_state(MLV_KEYBOARD_q) == MLV_PRESSED)
+        quit_game();
+
 	int position = -1;
 
+	/*MLV_get_mouse_position(&x, &y);
+	colour_boxes(x, y);
+*/
     MLV_wait_mouse(&x, &y);
     position = get_position(x, y, sudokuSize);
 

@@ -22,7 +22,9 @@ void game(Board* sudoku, Board* inGameSudoku, Board* numPad)
     /* MLV background */
     MLV_create_window("ｓｕｄｏｋｕ　（よリ哀)", "background", console_WIDTH, console_HEIGHT);
 
-    while(1)
+    int running = 1;
+
+    while(running)
     {
         /* Display the background and the inGame board */
         display_background();
@@ -30,13 +32,13 @@ void game(Board* sudoku, Board* inGameSudoku, Board* numPad)
         
         MLV_actualise_window();
 
+
         /* Check if the in-game board is full */
         if(inGameSudoku->empty_counter == 0)
-            quit_game();
+            running = 0;
 
         /* Get the player's input on the in-game board */
         position = get_input(sudokuSize);
-
         row = position / sudokuSize;
         column = position - row*sudokuSize;
 
@@ -44,15 +46,13 @@ void game(Board* sudoku, Board* inGameSudoku, Board* numPad)
         if(position == -1)
         {
             /* Keep waiting for next move */
-            MLV_draw_text(600, 30, "out of the board ...\n", MLV_COLOR_MAGENTA);
-            MLV_actualise_window();
+            animate_writing("out of board ...");
         }
         /* If player clicks on an unchangeable case */
         else if(sudoku->board[column][row] != 0)
         {
             /* Keep waiting for next move */
-            MLV_draw_text(600, 30, "cannot change value ...\n", MLV_COLOR_MAGENTA);
-            MLV_actualise_window();
+            animate_writing("cannot change value ...");
         }
         else
         {
@@ -70,30 +70,49 @@ void game(Board* sudoku, Board* inGameSudoku, Board* numPad)
                 padRow = padPosition / numSize;
                 padColumn = padPosition - padRow*numSize;
 
+                if(padPosition == -1)
+                    animate_writing("out of board ...");
                 /* If the number chosen is safe */
-                if(is_safe(inGameSudoku, column, row, numPad->board[padColumn][padRow]))
+                else if(is_safe(inGameSudoku, column, row, numPad->board[padColumn][padRow]))
                 {
                     /* If the case was empty before, decrease the empty counter */
                     if(inGameSudoku->board[column][row] == 0)
                         inGameSudoku->empty_counter--;
 
                     /* Add the chosen number to the in-game board */
-                    inGameSudoku->board[column][row] = numPad->board[padColumn][padRow];
-                    
+                    inGameSudoku->board[column][row] = numPad->board[padColumn][padRow];   
                 }
+                else
+                    animate_writing("cannot place this value here ...");
             }
         }
 
         MLV_clear_window(MLV_COLOR_BLACK);
     }
+    
+    win_the_game();
+}
+
+void win_the_game()
+{
+    MLV_clear_window(MLV_COLOR_BLACK);
+
+    /* Display the background */
+    display_background();        
+    MLV_actualise_window();
+
+    animate_writing("Congratulations, you won !");
+    MLV_wait_seconds(5.0f);
+    
+    quit_game();
 }
 
 void quit_game()
 {
-    MLV_draw_text(600, 30, "you quit the game!\n", MLV_COLOR_MAGENTA);
+    animate_writing("you quit the game !");
     MLV_actualise_window();
 
-    MLV_wait_seconds(5);
+    MLV_wait_seconds(2.0f);
 
     exit(0);
 }

@@ -39,7 +39,7 @@ void display_board(Board* sudoku, int sudokuSize)
     int counter = 0;
 
     for(column = 0; column < size; column = column+shape)
-    {
+    {              
         for(row = 0; row < size; row = row+shape)
         {
             MLV_draw_rectangle(row+marginLeft, column+marginTop, shape, shape, MLV_COLOR_GREY);
@@ -71,4 +71,24 @@ void write_number(int number, int x, int y)
     number_MLV[1] = '\0';
 
     MLV_draw_text(x, y, number_MLV, MLV_COLOR_GREY);
+}
+
+void animate_writing(char* str)
+{
+    int i;
+
+
+    char char_MLV[2];
+
+    for(i = 0; str[i] != '\0'; ++i)
+    {
+        char_MLV[0] = str[i];
+        char_MLV[1] = '\0';
+
+        MLV_draw_text(100 + (i*10), 630, char_MLV, MLV_COLOR_MAGENTA);
+        MLV_actualise_window();
+        MLV_wait_seconds(0.9f);
+    }
+
+    MLV_wait_seconds(1.0f);
 }
