@@ -16,9 +16,11 @@ int get_input(int sudokuSize)
 
 	int position = -1;
 
-	/*MLV_get_mouse_position(&x, &y);
+	/*
 	colour_boxes(x, y);
 */
+	/*MLV_get_mouse_position(&x, &y);
+	if(MLV_get_mouse_position(MLV_BUTTON_LEFT) == MLV_PRESSED)*/
     MLV_wait_mouse(&x, &y);
     position = get_position(x, y, sudokuSize);
 
