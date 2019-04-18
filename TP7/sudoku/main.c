@@ -12,6 +12,12 @@
 
 int main(int argc, char* argv[])
 {
+	if(argc < 2)
+	{
+		printf("Too few arguments ...\n");
+		return 0;
+	}
+
 	Board* sudoku, *inGame, *numPad;
 
 	sudoku = initialize_board(9);

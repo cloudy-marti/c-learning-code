@@ -77,7 +77,6 @@ void animate_writing(char* str)
 {
     int i;
 
-
     char char_MLV[2];
 
     for(i = 0; str[i] != '\0'; ++i)
@@ -87,8 +86,29 @@ void animate_writing(char* str)
 
         MLV_draw_text(100 + (i*10), 630, char_MLV, MLV_COLOR_MAGENTA);
         MLV_actualise_window();
-        MLV_wait_seconds(0.9f);
+        MLV_wait_milliseconds(100);
     }
 
-    MLV_wait_seconds(1.0f);
+    MLV_wait_milliseconds(300);
+}
+
+void display_time(int time)
+{
+    int seconds = time;
+    int minutes = seconds / 60;
+    /* Get Hours */
+    int hours = minutes / 60;
+    /* Get Minutes */
+    minutes = seconds - (hours * 60);
+    /* Get Seconds */
+    seconds = seconds - (hours * 3600) - (minutes * 60);
+
+    hours = 0;
+    minutes = 0;
+    seconds = time;
+
+    char clock_MLV[24];
+    sprintf(clock_MLV, "%02d:%02d:%02d", hours, minutes, seconds);
+
+    MLV_draw_text(600, 630, clock_MLV, MLV_COLOR_MAGENTA);
 }

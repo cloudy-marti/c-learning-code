@@ -10,7 +10,7 @@ int fread_board(const char* file, Board* board){
 	f = fopen(file, "r");
 	if (f == NULL)
 	{
-		fprintf(stderr, "file does not exist ... %s\n", file);
+		fprintf(stderr, "file \"%s\" does not exist ...\n", file);
 		return 0;
 	}
 

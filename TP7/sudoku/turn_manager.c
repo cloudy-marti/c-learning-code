@@ -1,5 +1,6 @@
 #include <MLV/MLV_all.h>
 #include <stdio.h>
+#include <time.h>
 
 #include "headers/board.h"
 #include "headers/sudoku.h"
@@ -24,14 +25,22 @@ void game(Board* sudoku, Board* inGameSudoku, Board* numPad)
 
     int running = 1;
 
+    /* Debug Mode - Get the final screen without actually winning
+    win_the_game();*/
+    
+    int time = 0;
+
     while(running)
     {
+        MLV_clear_window(MLV_COLOR_BLACK);
         /* Display the background and the inGame board */
         display_background();
         display_board(inGameSudoku, 9);
+
+        time = clock()/CLOCKS_PER_SEC;
+        display_time(time);
         
         MLV_actualise_window();
-
 
         /* Check if the in-game board is full */
         if(inGameSudoku->empty_counter == 0)

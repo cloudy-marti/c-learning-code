@@ -10,7 +10,7 @@ all : sudoku clean
 	@echo "             Graphical SUDOKU - C programming TP7"
 	@echo "                       Emilie Marti"
 	@echo ""
-	@echo "                 to execute type: ./sudoku"
+	@echo "          to execute type: ./sudoku data/path_to_file"
 	@echo "--------------------------------------------------------------"
 
 sudoku: $(OBJ)

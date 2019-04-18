@@ -10,5 +10,6 @@ void display_background();
 void display_board(Board* sudoku, int sudokuSize);
 void write_number(int number, int x, int y);
 void animate_writing(char* str);
+void display_time(int time);
 
 #endif
