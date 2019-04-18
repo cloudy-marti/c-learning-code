@@ -1,8 +1,6 @@
 #ifndef __SUDOKU__
 #define __SUDOKU__
 
-/*typedef int Board[9][9];*/
-
 typedef struct _board
 {
 	int board[9][9];

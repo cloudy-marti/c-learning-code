@@ -4,6 +4,8 @@
 #include <stdlib.h>
 
 #include "headers/board.h"
+#include <MLV/MLV_all.h>
+
 #include "headers/sudoku.h"
 #include "headers/data_reader.h"
 #include "headers/turn_manager.h"

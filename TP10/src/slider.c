@@ -1,31 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define console_WIDTH 512
-#define console_HEIGHT 512
-
-#define PUZZLE_SIZE 4
-
-typedef struct _square
-{
-	int row;
-	int column;
-	int data;
-} Square;
-
-typedef struct _board
-{
-	Square grid[PUZZLE_SIZE][PUZZLE_SIZE];
-} Board;
-
-typedef enum _direction
-{
-	NONE,
-	UP,
-	DOWN,
-	LEFT,
-	RIGHT
-} Direction;
+#include "../headers/slider.h"
 
 /**
  * Initialize board structure and give the number of the boxes
@@ -114,7 +90,10 @@ void move_to(Board* board, Square box, Direction direction)
 {
 	printf("data = %d \tboard[%d][%d]\n", board->grid[box.row][box.column].data, box.row, box.column);
 	if(direction == NONE)
+	{
+		printf("forbidden move\n");
 		return;
+	}
 	else if(direction == UP)
 		board->grid[box.row][box.column-1].data = board->grid[box.row][box.column].data;
 	else if(direction == DOWN)
@@ -149,34 +128,4 @@ int get_column(int position)
 int get_row(int position)
 {
 	return position/PUZZLE_SIZE;
-}
-
-int main(int argc, char** argv)
-{
-	Board board;
-
-	initialize_board(&board);
-	print_board(&board);
-
-	int input;
-	printf("choose a number\n");
-	scanf("%d", &input);
-
-	int row = get_row(input);
-	int column = get_column(input);
-
-	printf("\nposition = %d\tboard[%d][%d]\n", input, row, column);
-
-	Square chosenBox = board.grid[row][column];
-
-	move_square(&board, chosenBox);
-
-	print_board(&board);
-
-	printf("choose a number\n");
-	scanf("%d", &input);
-
-	
-
-	return 0;
 }
