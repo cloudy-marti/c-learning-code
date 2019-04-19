@@ -1,7 +1,7 @@
 #ifndef __SLIDER_H__
 #define __SLIDER_H__
 
-#define PUZZLE_SIZE 8
+#define PUZZLE_SIZE 4
 
 typedef struct _square
 {
@@ -31,5 +31,6 @@ void move_to(Board* board, Square box, Direction direction);
 void move_square(Board* board, Square box);
 int get_column(int position);
 int get_row(int position);
+void switch_data(int firstData, int secondData);
 
 #endif

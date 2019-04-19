@@ -8,8 +8,9 @@ void display_picture(Board* board, char* picture)
 	MLV_Image* puzzle_pic;
 
     puzzle_pic = MLV_load_image(picture);
+    int data, picRow, picColumn;
 
-    /*
+    /**
      * Display sliced picture using puzzle size
      */
 
@@ -19,12 +20,16 @@ void display_picture(Board* board, char* picture)
 	{
 		for(column = 0; column < PUZZLE_SIZE; ++column)
 		{
-			if((board->grid)[row][column].data != -1)
+			data = (board->grid)[row][column].data;
+			if(data != -1)
 			{
+				picRow = get_row(data);
+				picColumn = get_column(data);
+
 				MLV_draw_partial_image(	puzzle_pic,
-										column*(CONSOLE_SIZE/PUZZLE_SIZE - 1), row*(CONSOLE_SIZE/PUZZLE_SIZE - 1),
-										CONSOLE_SIZE/PUZZLE_SIZE - 1, CONSOLE_SIZE/PUZZLE_SIZE - 1,
-										column*(CONSOLE_SIZE/PUZZLE_SIZE + 1), row*(CONSOLE_SIZE/PUZZLE_SIZE + 1));
+										picColumn*(CONSOLE_SIZE/PUZZLE_SIZE) - 1, picRow*(CONSOLE_SIZE/PUZZLE_SIZE) - 1,
+										(CONSOLE_SIZE/PUZZLE_SIZE) - 1, (CONSOLE_SIZE/PUZZLE_SIZE) - 1,
+										column*(CONSOLE_SIZE/PUZZLE_SIZE) + 1, row*(CONSOLE_SIZE/PUZZLE_SIZE) + 1);
 			}
 		}
 	}

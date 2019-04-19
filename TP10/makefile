@@ -12,7 +12,7 @@ all : slider
 	@echo "             Slider Puzzle Game - C Programming"
 	@echo "                      Emilie Marti"
 	@echo ""
-	@echo "                to execute type: ./bin/slider"
+	@echo "           to execute type: ./bin/slider data/pic"
 	@echo "--------------------------------------------------------------"
 
 slider: $(OBJ)

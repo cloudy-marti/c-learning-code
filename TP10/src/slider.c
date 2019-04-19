@@ -129,3 +129,10 @@ int get_row(int position)
 {
 	return position/PUZZLE_SIZE;
 }
+
+void check_solved_puzzle(Board* board)
+{
+	if(board->grid[PUZZLE_SIZE-1][PUZZLE_SIZE-1].data != -1)
+		/*first check : not solved*/
+		return;
+}

@@ -18,28 +18,35 @@ int main(int argc, char** argv)
 
 	initialize_board(&board);
 	print_board(&board);
-
+		
 	MLV_create_window("slider puzzle game opa", "background", CONSOLE_SIZE, CONSOLE_SIZE);
-	display_picture(&board, argv[1]);
-	MLV_actualise_window();
 
-	int input = stdin_scan_input();
+	int running = 1;
 
-	int row = get_row(input);
-	int column = get_column(input);
+	while(running)
+	{
+		display_picture(&board, argv[1]);
+		MLV_actualise_window();
 
-	printf("\nposition = %d\tboard[%d][%d]\n", input, row, column);
+		int input = stdin_scan_input();
 
-	Square chosenBox = board.grid[row][column];
+		int row = get_row(input);
+		int column = get_column(input);
 
-	move_square(&board, chosenBox);
+		printf("\nposition = %d\tboard[%d][%d]\n", input, row, column);
 
-	print_board(&board);
-	MLV_clear_window(MLV_COLOR_BLACK);
-	display_picture(&board, argv[1]);
-	MLV_actualise_window();
+		Square chosenBox = board.grid[row][column];
 
-	MLV_wait_seconds(10);
+		if(chosenBox.data != -1)
+		{
+			move_square(&board, chosenBox);
+			print_board(&board);	
+		}
+		else
+			printf("cannot move empty box\n");
+		
+		MLV_clear_window(MLV_COLOR_BLACK);
+	}
 
 	return 0;
 }
