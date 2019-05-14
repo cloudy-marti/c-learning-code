@@ -23,22 +23,25 @@ void game(Board* sudoku, Board* inGameSudoku, Board* numPad)
     /* MLV background */
     MLV_create_window("ｓｕｄｏｋｕ　（よリ哀)", "background", console_WIDTH, console_HEIGHT);
 
+    MLV_Font* font = MLV_load_font("data/font.ttf", 20);
+
     int running = 1;
 
     /* Debug Mode - Get the final screen without actually winning
     win_the_game();*/
     
-    int time = 0;
+    double time = 0;
 
     while(running)
     {
         MLV_clear_window(MLV_COLOR_BLACK);
+
         /* Display the background and the inGame board */
         display_background();
-        display_board(inGameSudoku, 9);
+        display_board(inGameSudoku, 9, font);
 
         time = clock()/CLOCKS_PER_SEC;
-        display_time(time);
+        display_time(time, font);
         
         MLV_actualise_window();
 
@@ -51,49 +54,49 @@ void game(Board* sudoku, Board* inGameSudoku, Board* numPad)
         row = position / sudokuSize;
         column = position - row*sudokuSize;
 
-        /* If player clicks out of the board */
-        if(position == -1)
+        if(position != -2)
         {
-            /* Keep waiting for next move */
-            animate_writing("out of board ...");
-        }
-        /* If player clicks on an unchangeable case */
-        else if(sudoku->board[column][row] != 0)
-        {
-            /* Keep waiting for next move */
-            animate_writing("cannot change value ...");
-        }
-        else
-        {
-            padPosition = -1;
-            
-            while(padPosition == -1)
+            /* If player clicks out of the board */
+            if(position == -1)
             {
-                /* Display the numeric pad */
-                display_board(numPad, 3);
-                MLV_actualise_window();
-                
-                /* Get the player's input on the numeric pad */
-                padPosition = get_input(numSize);
-
-                padRow = padPosition / numSize;
-                padColumn = padPosition - padRow*numSize;
-
-                if(padPosition == -1)
-                    animate_writing("out of board ...");
-                /* If the number chosen is safe */
-                else if(is_safe(inGameSudoku, column, row, numPad->board[padColumn][padRow]))
-                {
-                    /* If the case was empty before, decrease the empty counter */
-                    if(inGameSudoku->board[column][row] == 0)
-                        inGameSudoku->empty_counter--;
-
-                    /* Add the chosen number to the in-game board */
-                    inGameSudoku->board[column][row] = numPad->board[padColumn][padRow];   
-                }
-                else
-                    animate_writing("cannot place this value here ...");
+                /* Keep waiting for next move */
+                animate_writing("out of board ...");
             }
+            /* If player clicks on an unchangeable case */
+            else if(sudoku->board[column][row] != 0)
+            {
+                /* Keep waiting for next move */
+                animate_writing("cannot change value ...");
+            }
+            else
+            {
+                padPosition = -2;
+                
+                while(padPosition == -2)
+                {
+                    /* Display the numeric pad */
+                    display_board(numPad, 3, font);
+                    MLV_actualise_window();
+                    
+                    /* Get the player's input on the numeric pad */
+                    padPosition = get_input(numSize);
+
+                    padRow = padPosition / numSize;
+                    padColumn = padPosition - padRow*numSize;
+
+                    /* If the number chosen is safe */
+                    if(is_safe(inGameSudoku, column, row, numPad->board[padColumn][padRow]))
+                    {
+                        /* If the case was empty before, decrease the empty counter */
+                        if(inGameSudoku->board[column][row] == 0)
+                            inGameSudoku->empty_counter--;
+
+                        /* Add the chosen number to the in-game board */
+                        inGameSudoku->board[column][row] = numPad->board[padColumn][padRow];   
+                    }
+                }
+            }
+
         }
 
         MLV_clear_window(MLV_COLOR_BLACK);

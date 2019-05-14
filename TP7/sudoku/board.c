@@ -18,7 +18,7 @@ void display_background()
     MLV_draw_image(background, 0, 0);
 }
 
-void display_board(Board* sudoku, int sudokuSize)
+void display_board(Board* sudoku, int sudokuSize, MLV_Font* font)
 {
     int row, column, size, marginTop, marginLeft;
 
@@ -46,13 +46,13 @@ void display_board(Board* sudoku, int sudokuSize)
 
             if(sudokuSize == 9)
             {
-                write_number(sudoku->board[counter/sudokuSize][counter%sudokuSize], row+marginLeft+shape/2, column+marginTop+shape/2);
+                write_number(sudoku->board[counter/sudokuSize][counter%sudokuSize], row+marginLeft+shape/2 - 5, column+marginTop+shape/2 - 5, font);
                 counter++;
             }
             else
             {
                 counter++;
-                write_number(counter, row+marginLeft+shape/2, column+marginTop+shape/2);
+                write_number(counter, row+marginLeft+shape/2 - 5, column+marginTop+shape/2 - 5, font);
             }
         }
     }
@@ -60,7 +60,7 @@ void display_board(Board* sudoku, int sudokuSize)
     MLV_actualise_window();
 }
 
-void write_number(int number, int x, int y)
+void write_number(int number, int x, int y, MLV_Font* font)
 {
     if(number == 0)
         return;
@@ -70,7 +70,7 @@ void write_number(int number, int x, int y)
     number_MLV[0] = number + '0';
     number_MLV[1] = '\0';
 
-    MLV_draw_text(x, y, number_MLV, MLV_COLOR_GREY);
+    MLV_draw_text_with_font(x, y, number_MLV, font, MLV_COLOR_GREY);
 }
 
 void animate_writing(char* str)
@@ -86,13 +86,10 @@ void animate_writing(char* str)
 
         MLV_draw_text(100 + (i*10), 630, char_MLV, MLV_COLOR_MAGENTA);
         MLV_actualise_window();
-        MLV_wait_milliseconds(100);
     }
-
-    MLV_wait_milliseconds(300);
 }
 
-void display_time(int time)
+void display_time(int time, MLV_Font* font)
 {
     int seconds = time;
     int minutes = seconds / 60;
@@ -110,5 +107,5 @@ void display_time(int time)
     char clock_MLV[24];
     sprintf(clock_MLV, "%02d:%02d:%02d", hours, minutes, seconds);
 
-    MLV_draw_text(600, 630, clock_MLV, MLV_COLOR_MAGENTA);
+    MLV_draw_text_with_font(850, 630, clock_MLV, font, MLV_COLOR_MAGENTA);
 }

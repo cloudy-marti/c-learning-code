@@ -1,4 +1,4 @@
-#include <MLV/MLV_all.h>
+ #include <MLV/MLV_all.h>
 #include <stdio.h>
 #include "headers/input_manager.h"
 #include "headers/sudoku.h"
@@ -11,18 +11,32 @@ int get_input(int sudokuSize)
 	int x = 0;
 	int y = 0;
 
-	if(MLV_get_keyboard_state(MLV_KEYBOARD_q) == MLV_PRESSED)
-        quit_game();
+	int position = -2;
 
-	int position = -1;
+	MLV_Event event;
 
-	/*
-	colour_boxes(x, y);
-*/
-	/*MLV_get_mouse_position(&x, &y);
-	if(MLV_get_mouse_position(MLV_BUTTON_LEFT) == MLV_PRESSED)*/
-    MLV_wait_mouse(&x, &y);
-    position = get_position(x, y, sudokuSize);
+	MLV_Keyboard_button key;
+	MLV_Button_state state;
+
+	do
+	{
+		event = MLV_get_event(&key, NULL, NULL, NULL, NULL, &x, &y, NULL, &state);
+	}
+	while(event == MLV_MOUSE_MOTION);
+
+	if(event == MLV_NONE)
+	{
+		return -2;
+	}
+	else if(event == MLV_KEY && state == MLV_RELEASED)
+	{
+		if(key == MLV_KEYBOARD_q)
+			quit_game();
+	}
+	else if(event == MLV_MOUSE_BUTTON && state == MLV_PRESSED)
+	{
+		position = get_position(x, y, sudokuSize);
+	}
 
     return position;
 }

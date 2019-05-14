@@ -1,7 +1,7 @@
 # Makefile TP 7 INFO1
 
 CC=gcc
-CFLAGS=-Wall -ansi -g
+CFLAGS=-Wall -ansi -g -std=c99
 OBJ=board.o input_manager.o main.o sudoku.o data_reader.o turn_manager.o
 LDFLAGS=-lMLV -lm
 
