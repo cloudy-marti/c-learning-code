@@ -17,3 +17,21 @@ int stdin_scan_input()
 
 	return input;
 }
+
+int click_input(Board* board)
+{
+	MLV_event event;
+	MLV_Mouse_button click;
+
+	event = MLV_get_event(NULL, NULL, NULL, NULL, NULL, NULL, &click, NULL);
+
+	if(event == MLV_NONE)
+		return 0;
+
+	if(MLV_get_keyboard_state(key) == MLV_PRESSED)
+		move_to();
+
+	return 1;
+}
+
+void 
