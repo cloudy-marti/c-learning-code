@@ -7,9 +7,9 @@
 #include "sudoku.h"
 
 void display_background();
-void display_board(Board* sudoku, int sudokuSize);
-void write_number(int number, int x, int y);
+void display_board(Board* sudoku, int sudokuSize, MLV_Font* font);
+void write_number(int number, int x, int y, MLV_Font* font);
 void animate_writing(char* str);
-void display_time(int time);
+void display_time(int time, MLV_Font* font);
 
 #endif

@@ -28,8 +28,9 @@ int main(int argc, char** argv)
 		display_picture(&board, argv[1]);
 		MLV_actualise_window();
 
-		int input = stdin_scan_input();
-
+		int input = click_input();
+/*stdin_scan_input
+click_input*/
 		int row = get_row(input);
 		int column = get_column(input);
 

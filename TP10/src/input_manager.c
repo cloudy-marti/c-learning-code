@@ -1,6 +1,9 @@
 #include <stdio.h>
+#include <MLV/MLV_all.h>
 
 #include "../headers/slider.h"
+#include "../headers/mlv_board.h"
+#include "../headers/input_manager.h"
 
 int stdin_scan_input()
 {
@@ -18,20 +21,28 @@ int stdin_scan_input()
 	return input;
 }
 
-int click_input(Board* board)
+int click_input()
 {
-	MLV_event event;
-	MLV_Mouse_button click;
+	int x = 0;
+	int y = 0;
 
-	event = MLV_get_event(NULL, NULL, NULL, NULL, NULL, NULL, &click, NULL);
+	int input = -1;
 
-	if(event == MLV_NONE)
-		return 0;
+	MLV_wait_mouse(&x, &y);
 
-	if(MLV_get_keyboard_state(key) == MLV_PRESSED)
-		move_to();
+	input = get_position(x, y);
 
-	return 1;
+	return input;
 }
 
-void 
+int get_position(int x, int y)
+{
+	int position = 0;
+
+	x /= (CONSOLE_SIZE / PUZZLE_SIZE);
+	y /= (CONSOLE_SIZE / PUZZLE_SIZE);
+
+	position = (y*PUZZLE_SIZE) + x;
+
+	return position;
+}
