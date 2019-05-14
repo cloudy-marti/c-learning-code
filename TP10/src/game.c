@@ -18,6 +18,9 @@ int main(int argc, char** argv)
 
 	initialize_board(&board);
 	print_board(&board);
+
+	shuffle(&board, (PUZZLE_SIZE*PUZZLE_SIZE)-1, SHUFFLE_TIMES);
+	print_board(&board);
 		
 	MLV_create_window("slider puzzle game opa", "background", CONSOLE_SIZE, CONSOLE_SIZE);
 
@@ -29,12 +32,11 @@ int main(int argc, char** argv)
 		MLV_actualise_window();
 
 		int input = click_input();
-/*stdin_scan_input
-click_input*/
+
 		int row = get_row(input);
 		int column = get_column(input);
 
-		printf("\nposition = %d\tboard[%d][%d]\n", input, row, column);
+		//printf("\nposition = %d\tboard[%d][%d]\n", input, row, column);
 
 		Square chosenBox = board.grid[row][column];
 

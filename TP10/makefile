@@ -1,7 +1,7 @@
 ### Makefile of Slider Puzzle Project ###
 
 CC=gcc
-CFLAGS=-Wall -ansi -g
+CFLAGS=-Wall -ansi -g -std=c99
 OBJ=$(OBJPATH)game.o $(OBJPATH)slider.o $(OBJPATH)input_manager.o $(OBJPATH)mlv_board.o
 OBJPATH=obj/
 SRCPATH=src/
