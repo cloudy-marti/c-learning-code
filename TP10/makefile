@@ -2,7 +2,7 @@
 
 CC=gcc
 CFLAGS=-Wall -ansi -g -std=c99
-OBJ=$(OBJPATH)game.o $(OBJPATH)slider.o $(OBJPATH)input_manager.o $(OBJPATH)mlv_board.o
+OBJ=$(OBJPATH)game.o $(OBJPATH)slider.o $(OBJPATH)input_manager.o $(OBJPATH)mlv_board.o $(OBJPATH)slider_helper.o
 OBJPATH=obj/
 SRCPATH=src/
 LDFLAGS=-lMLV -lm
@@ -29,6 +29,9 @@ $(OBJPATH)input_manager.o: $(SRCPATH)input_manager.c
 
 $(OBJPATH)mlv_board.o: $(SRCPATH)mlv_board.c
 	$(CC) -c $(SRCPATH)mlv_board.c -o $(OBJPATH)mlv_board.o $(CFLAGS) -lMLV
+
+$(OBJPATH)slider_helper.o: $(SRCPATH)slider_helper.c
+	$(CC) -c $(SRCPATH)slider_helper.c -o $(OBJPATH)slider_helper.o $(CFLAGS) -lMLV
 
 clean:
 	rm -f $(OBJ)

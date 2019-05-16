@@ -2,6 +2,7 @@
 #include <stdlib.h>
 
 #include "../headers/slider.h"
+#include "../headers/slider_helper.h"
 
 /**
  * Initialize board structure and give the number of the boxes
@@ -120,24 +121,76 @@ void move_square(Board* board, Square box)
 	move_to(board, box, direction);
 }
 
-int get_column(int position)
-{
-	return position%PUZZLE_SIZE;
-}
-
-int get_row(int position)
-{
-	return position/PUZZLE_SIZE;
-}
-
-int get_position_from_coordinates(int row, int column)
-{
-	return (row*PUZZLE_SIZE) + column;
-}
-
 void check_solved_puzzle(Board* board)
 {
 	if(board->grid[PUZZLE_SIZE-1][PUZZLE_SIZE-1].data != -1)
 		/*first check : not solved*/
 		return;
+}
+
+void update_position(Board* board, int x, int y, int* position, int* counter)
+{
+	move_square(board, board->grid[x][y]);
+	*position = get_position_from_coordinates(x, y);
+	(*counter)--;
+}
+
+void shuffle(Board* board, int position, int counter)
+{
+	if(counter == 0)
+		return;
+
+	Direction direction = rand()%5;
+
+	int x = get_row(position);
+	int y = get_column(position);
+
+
+	switch(direction)
+	{
+		case UP :
+			y -= 1;
+
+			if(y >= 0)
+			{
+				update_position(board, x, y, &position, &counter);
+			}
+
+			break;
+
+		case DOWN :
+			y += 1;
+
+			if(y < PUZZLE_SIZE)
+			{
+				update_position(board, x, y, &position, &counter);
+			}
+
+			break;
+
+		case LEFT :
+			x -= 1;
+
+			if(x >= 0)
+			{
+				update_position(board, x, y, &position, &counter);
+			}
+
+			break;
+
+		case RIGHT :
+			x += 1;
+
+			if(x < PUZZLE_SIZE)
+			{
+				update_position(board, x, y, &position, &counter);
+			}
+
+			break;
+
+		default :
+			break;
+	}
+
+	return shuffle(board, position, counter);
 }

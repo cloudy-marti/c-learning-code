@@ -2,18 +2,16 @@
 
 #include "../headers/slider.h"
 #include "../headers/mlv_board.h"
+#include "../headers/slider_helper.h"
 
-void display_picture(Board* board, char* picture)
+MLV_Image* load_picture(char* picturePath)
 {
-	MLV_Image* puzzle_pic;
+	return MLV_load_image(picturePath);
+}
 
-    puzzle_pic = MLV_load_image(picture);
+void display_picture(Board* board, MLV_Image* puzzle_pic)
+{
     int data, picRow, picColumn;
-
-    /**
-     * Display sliced picture using puzzle size
-     */
-
     int row, column;
 
     for(row = 0; row < PUZZLE_SIZE; ++row)
