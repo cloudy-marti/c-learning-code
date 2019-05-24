@@ -106,17 +106,53 @@ void set_lady_mask(uint64_t* bitboard, int ladyPosition)
 		int tmp = (currentByte/BOARD_SIZE) - ladyByte;
 		bit = currentByte + ladyPositionInByte + tmp;
 
-		if(bit < BITBOARD_SIZE && bit >= 0)
+		/**
+		 * Slash Diagonal (/)
+		 */
+		if(slash_bound(bit) == slash_bound(ladyPosition))
 		{
 			*bitboard = set_positive_bit_bitboard(*bitboard, bit);
 		}
 
+		/**
+		 * AntiSlash Diagonal (\)
+		 */
 		bit = currentByte + ladyPositionInByte - tmp;
 
-		if(bit < BITBOARD_SIZE && bit >= 0)
+		if(antislash_bound(bit) == antislash_bound(ladyPosition))
 		{
 			*bitboard = set_positive_bit_bitboard(*bitboard, bit);
 		}
 		//printf("%d - %d = %d\t\tbit = %d\n", currentByte/BOARD_SIZE, ladyByte, tmp, bit);
 	}
+}
+
+
+/**
+ * Bits in the same diagonal share some properties
+ * We use a simple mathematical check to see if the bit we want to set is in the diagonal
+ */
+int slash_bound(int ladyPosition)
+{
+	return get_row(ladyPosition) - get_column(ladyPosition);
+}
+
+int antislash_bound(int ladyPosition)
+{
+	return get_row(ladyPosition) + get_column(ladyPosition);
+}
+
+int get_column(int position)
+{
+	return position%BOARD_SIZE;
+}
+
+int get_row(int position)
+{
+	return position/BOARD_SIZE;
+}
+
+int get_position(int row, int column)
+{
+	return (column*BOARD_SIZE) + row;
 }
