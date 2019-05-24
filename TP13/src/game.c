@@ -2,19 +2,33 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdio.h>
+#include <stdint.h>
 
 #include "../headers/checkers.h"
 
 int main(int argc, char** argv)
 {
-	printf("size of unsigned long int = %ld\tsize of int = %ld\n", sizeof(unsigned long int), sizeof(int));
+	printf("size of uint64_t = %ld\n", sizeof(uint64_t));
+	uint64_t bitboard = 0;
 
-	unsigned long int bitboard;
+	/* 0xFFFFFFFFFFFFFFFF */
 
-	printf("input\n");
-	scanf("%ld", &bitboard);
+	print_bitboard_board(bitboard);
+	int input = 0;
 
-	print_bitboard(bitboard);
+	printf("where are you going to put the lady ?\n");
+	scanf("%d", &input);
+
+	/*while(input != -1)
+	{
+
+		bitboard = set_positive_bit_bitboard(bitboard, input);
+
+	}*/
+
+
+	set_lady_mask(&bitboard, input);
+	print_bitboard_board(bitboard);
 
 	return 0;
 }
