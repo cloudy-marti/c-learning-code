@@ -1,6 +1,6 @@
 #include <MLV/MLV_all.h>
 
-#include "../headers/checkers.h"
+#include "../headers/queens.h"
 #include "../headers/mlv_board.h"
 
 void display_background()
@@ -40,34 +40,66 @@ static int get_position_from_coordinates(int x, int y)
 void display_board(uint64_t bitboard)
 {
     int shape = 75;
-    int size = 75*BOARD_SIZE;
+    // int size = 75*BOARD_SIZE;
 
     int marginTop = 50;
     int marginLeft = 100;
 
     int row, column;
-
+    int counter = BITBOARD_SIZE;
     MLV_Color color;
 
-    for(column = 0; column < size; column = column+shape)
-    {              
-        for(row = 0; row < size; row = row+shape)
+    for(row = BOARD_SIZE - 1; row >= 0; --row)
+    {
+        for(column = 0; column < BOARD_SIZE; column++)
         {
-        	if((row+column)%2 != 0)
-        	{
-        		color = MLV_convert_rgba_to_color(225, 225, 175, 125);
-        	}
-        	else
-        	{
-        		color = MLV_convert_rgba_to_color(125, 125, 125, 125);
-        	}
+            counter--;
 
-            if(bit_value_bitboard(bitboard, get_position_from_coordinates(row, column)))
+            if(bit_value_bitboard(bitboard, counter))
             {
                 color = MLV_convert_rgba_to_color(125, 0, 0, 125);
             }
+            else
+            {
+                if((row+column)%2 != 0)
+                {
+                    color = MLV_convert_rgba_to_color(225, 225, 175, 125);
+                }
+                else
+                {
+                    color = MLV_convert_rgba_to_color(125, 125, 125, 125);
+                }
+            }
 
-            MLV_draw_filled_rectangle(row+marginLeft, column+marginTop, shape, shape, color);
+            MLV_draw_filled_rectangle((row*shape)+marginLeft, (column*shape)+marginTop, shape, shape, color);
+
+            // printf("| %c ", bit_value_bitboard(bitboard, counter)? '1':'0');
         }
     }
+    // for(column = 0; column < size; column = column+shape)
+    // {              
+    //     for(row = 0; row < size; row = row+shape)
+    //     {
+    //     	if((row+column)%2 != 0)
+    //     	{
+    //     		color = MLV_convert_rgba_to_color(225, 225, 175, 125);
+    //     	}
+    //     	else
+    //     	{
+    //     		color = MLV_convert_rgba_to_color(125, 125, 125, 125);
+    //     	}
+
+    //         int index;
+    //         for(index = BITBOARD_SIZE - 1; index >= 0; --index)
+    //         {
+    //             if(bit_value_bitboard(bitboard, get_position_from_coordinates(row, column)))
+    //             {
+    //                 color = MLV_convert_rgba_to_color(125, 0, 0, 125);
+    //             }
+    //         }
+
+
+    //         MLV_draw_filled_rectangle(row+marginLeft, column+marginTop, shape, shape, color);
+    //     }
+    // }
 }

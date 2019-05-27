@@ -12,7 +12,7 @@ void print_bitboard_board(uint64_t bitboard);
 uint64_t set_positive_bit_bitboard(uint64_t bitboard, int position);
 uint64_t set_negative_bit_bitboard(uint64_t bitboard, int position);
 
-void set_lady_mask(uint64_t* bitboard, int ladyPosition);
+int set_lady_mask(uint64_t* bitboard, int ladyPosition);
 int slash_bound(int ladyPosition);
 int antislash_bound(int ladyPosition);
 

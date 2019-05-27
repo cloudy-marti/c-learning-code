@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include <stdint.h>
 
-#include "../headers/checkers.h"
-#include "../headers/checkers_helper.h"
+#include "../headers/queens.h"
+#include "../headers/queens_helper.h"
 
 int bit_value_bitboard(uint64_t bitboard, int position)
 {
@@ -78,7 +78,7 @@ uint64_t set_negative_bit_bitboard(uint64_t bitboard, int position)
 	return newBitboard;
 }
 
-void set_lady_mask(uint64_t* bitboard, int ladyPosition)
+int set_lady_mask(uint64_t* bitboard, int ladyPosition)
 {
 	int ladyByte = ladyPosition / BOARD_SIZE;
 	int ladyPositionInByte = ladyPosition % BOARD_SIZE;
@@ -104,13 +104,15 @@ void set_lady_mask(uint64_t* bitboard, int ladyPosition)
 		 * Diagonal
 		 */
 		int tmp = (currentByte/BOARD_SIZE) - ladyByte;
-		bit = currentByte + ladyPositionInByte + tmp;
 
 		/**
 		 * Slash Diagonal (/)
 		 */
+		bit = currentByte + ladyPositionInByte + tmp;
+		
 		if(slash_bound(bit) == slash_bound(ladyPosition))
 		{
+			printf("slash bound = %d\t\t%d\n", slash_bound(ladyPosition), slash_bound(bit));
 			*bitboard = set_positive_bit_bitboard(*bitboard, bit);
 		}
 
@@ -121,9 +123,12 @@ void set_lady_mask(uint64_t* bitboard, int ladyPosition)
 
 		if(antislash_bound(bit) == antislash_bound(ladyPosition))
 		{
+			printf("antislash bound = %d\t%d\n", antislash_bound(ladyPosition), antislash_bound(bit));
 			*bitboard = set_positive_bit_bitboard(*bitboard, bit);
 		}
 	}
+
+	return 1;
 }
 
 

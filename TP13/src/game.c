@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <stdint.h>
 
-#include "../headers/checkers.h"
+#include "../headers/queens.h"
 #include "../headers/mlv_board.h"
 
 int main(int argc, char** argv)
@@ -18,9 +18,10 @@ int main(int argc, char** argv)
 	printf("where are you going to put the lady ?\n");
 	scanf("%d", &input);
 
-	set_lady_mask(&bitboard, input);
-	print_bitboard_board(bitboard);
+	int ladyMask = set_lady_mask(&bitboard, input);
+	printf("%s\n", ladyMask? "yes !":"nop");
 
+	print_bitboard_board(bitboard);
     MLV_create_window("8 dames", "background", CONSOLE_SIZE, CONSOLE_SIZE);
 
     while(1)
