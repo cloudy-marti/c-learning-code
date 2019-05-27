@@ -18,6 +18,9 @@ int main(int argc, char** argv)
 	printf("where are you going to put the lady ?\n");
 	scanf("%d", &input);
 
+	set_lady_mask(&bitboard, input);
+	print_bitboard_board(bitboard);
+
     MLV_create_window("8 dames", "background", CONSOLE_SIZE, CONSOLE_SIZE);
 
     while(1)
@@ -30,9 +33,6 @@ int main(int argc, char** argv)
 	    MLV_actualise_window();
 		MLV_wait_seconds(5);
     }
-
-	set_lady_mask(&bitboard, input);
-	print_bitboard_board(bitboard);
 
 	return 0;
 }

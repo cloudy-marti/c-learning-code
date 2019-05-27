@@ -25,6 +25,18 @@ void display_background()
     MLV_draw_image(background, 0, 0);
 }
 
+static int get_position_from_coordinates(int x, int y)
+{
+    int position = 0;
+
+    x /= (CONSOLE_SIZE / BOARD_SIZE);
+    y /= (CONSOLE_SIZE / BOARD_SIZE);
+
+    position = (y*BOARD_SIZE) + x;
+
+    return position;
+}
+
 void display_board(uint64_t bitboard)
 {
     int shape = 75;
@@ -49,6 +61,11 @@ void display_board(uint64_t bitboard)
         	{
         		color = MLV_convert_rgba_to_color(125, 125, 125, 125);
         	}
+
+            if(bit_value_bitboard(bitboard, get_position_from_coordinates(row, column)))
+            {
+                color = MLV_convert_rgba_to_color(125, 0, 0, 125);
+            }
 
             MLV_draw_filled_rectangle(row+marginLeft, column+marginTop, shape, shape, color);
         }

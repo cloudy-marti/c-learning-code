@@ -123,7 +123,6 @@ void set_lady_mask(uint64_t* bitboard, int ladyPosition)
 		{
 			*bitboard = set_positive_bit_bitboard(*bitboard, bit);
 		}
-		//printf("%d - %d = %d\t\tbit = %d\n", currentByte/BOARD_SIZE, ladyByte, tmp, bit);
 	}
 }
 
