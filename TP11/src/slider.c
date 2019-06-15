@@ -89,10 +89,8 @@ Direction check_empty(Board* board, Square box)
  */
 void move_to(Board* board, Square box, Direction direction)
 {
-	//printf("data = %d \tboard[%d][%d]\n", board->grid[box.row][box.column].data, box.row, box.column);
 	if(direction == NONE)
 	{
-	//	printf("forbidden move\n");
 		return;
 	}
 	else if(direction == UP)
@@ -116,16 +114,7 @@ void move_square(Board* board, Square box)
 {
 	Direction direction = check_empty(board, box);
 
-	//printf("Chosen Direction = %d\tboard[%d][%d]\n", direction, box.row, box.column);
-
 	move_to(board, box, direction);
-}
-
-void check_solved_puzzle(Board* board)
-{
-	if(board->grid[PUZZLE_SIZE-1][PUZZLE_SIZE-1].data != -1)
-		/*first check : not solved*/
-		return;
 }
 
 void update_position(Board* board, int x, int y, int* position, int* counter)

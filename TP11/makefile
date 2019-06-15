@@ -15,8 +15,11 @@ all : slider
 	@echo "           to execute type: ./bin/slider data/pic"
 	@echo "--------------------------------------------------------------"
 
-slider: $(OBJ)
+slider: dir $(OBJ)
 	$(CC) -o bin/slider $(OBJ) $(LDFLAGS)
+
+dir:
+	mkdir -p bin obj
 
 $(OBJPATH)game.o: $(SRCPATH)game.c
 	$(CC) -c $(SRCPATH)game.c -o $(OBJPATH)game.o $(CFLAGS) -lMLV
@@ -35,4 +38,4 @@ $(OBJPATH)slider_helper.o: $(SRCPATH)slider_helper.c
 
 clean:
 	rm -f $(OBJ)
-	rm -f ../bin/slider
+	rm -f bin/slider
