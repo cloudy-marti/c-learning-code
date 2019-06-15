@@ -3,51 +3,25 @@
 #include "../headers/queens.h"
 #include "../headers/mlv_board.h"
 
-void display_background()
+void display_background(MLV_Image* background)
 {
-    // MLV_Image *background;
-    // int bg_width, bg_height;
-
-    // background = MLV_load_image("data/space.jpeg");
-
-    // //MLV_resize_image_with_proportions(background, CONSOLE_SIZE, CONSOLE_SIZE);
-    // //MLV_get_image_size(background, &bg_width, &bg_height);
-
-    // MLV_draw_image(background, 0, 0);
-    MLV_Image *background;
-    int bg_width, bg_height;
-
-    background = MLV_load_image("data/space.jpg");
-
     MLV_resize_image_with_proportions(background, CONSOLE_SIZE, CONSOLE_SIZE);
-    MLV_get_image_size(background, &bg_width, &bg_height);
 
     MLV_draw_image(background, 0, 0);
 }
 
-static int get_position_from_coordinates(int x, int y)
+void display_board(uint64_t bitboard, MLV_Image* picture)
 {
-    int position = 0;
+    int shape = 54;
 
-    x /= (CONSOLE_SIZE / BOARD_SIZE);
-    y /= (CONSOLE_SIZE / BOARD_SIZE);
-
-    position = (y*BOARD_SIZE) + x;
-
-    return position;
-}
-
-void display_board(uint64_t bitboard)
-{
-    int shape = 75;
-    // int size = 75*BOARD_SIZE;
-
-    int marginTop = 50;
-    int marginLeft = 100;
+    int marginTop = MARGIN_TOP;
+    int marginLeft = MARGIN_LEFT;
 
     int row, column;
     int counter = BITBOARD_SIZE;
+    
     MLV_Color color;
+    MLV_resize_image_with_proportions(picture, shape, shape);
 
     for(row = BOARD_SIZE - 1; row >= 0; --row)
     {
@@ -55,51 +29,39 @@ void display_board(uint64_t bitboard)
         {
             counter--;
 
-            if(bit_value_bitboard(bitboard, counter))
+            if((row+column)%2 != 0)
             {
-                color = MLV_convert_rgba_to_color(125, 0, 0, 125);
+                color = MLV_convert_rgba_to_color(250, 65, 200, 125);
             }
             else
             {
-                if((row+column)%2 != 0)
-                {
-                    color = MLV_convert_rgba_to_color(225, 225, 175, 125);
-                }
-                else
-                {
-                    color = MLV_convert_rgba_to_color(125, 125, 125, 125);
-                }
+                color = MLV_convert_rgba_to_color(55, 205, 255, 125);
             }
-
+            
             MLV_draw_filled_rectangle((row*shape)+marginLeft, (column*shape)+marginTop, shape, shape, color);
-
-            // printf("| %c ", bit_value_bitboard(bitboard, counter)? '1':'0');
+            
+            if(bit_value_bitboard(bitboard, counter))
+            {
+                MLV_draw_image(picture, (row*shape)+marginLeft, (column*shape)+marginTop+(rand()%2));
+            }
         }
     }
-    // for(column = 0; column < size; column = column+shape)
-    // {              
-    //     for(row = 0; row < size; row = row+shape)
-    //     {
-    //     	if((row+column)%2 != 0)
-    //     	{
-    //     		color = MLV_convert_rgba_to_color(225, 225, 175, 125);
-    //     	}
-    //     	else
-    //     	{
-    //     		color = MLV_convert_rgba_to_color(125, 125, 125, 125);
-    //     	}
+}
 
-    //         int index;
-    //         for(index = BITBOARD_SIZE - 1; index >= 0; --index)
-    //         {
-    //             if(bit_value_bitboard(bitboard, get_position_from_coordinates(row, column)))
-    //             {
-    //                 color = MLV_convert_rgba_to_color(125, 0, 0, 125);
-    //             }
-    //         }
+void end_game(MLV_Image* background, MLV_Image* picture)
+{
+    int index;
 
-
-    //         MLV_draw_filled_rectangle(row+marginLeft, column+marginTop, shape, shape, color);
-    //     }
-    // }
+    for(index = 54; index <= CONSOLE_SIZE; index += 10)
+    {
+        display_background(background);
+        
+        MLV_resize_image_with_proportions(picture, index, index);
+        MLV_draw_image(picture, (CONSOLE_SIZE/2) - (index/2), (CONSOLE_SIZE/2) - (index/2));
+        
+        MLV_actualise_window();
+        MLV_clear_window(MLV_COLOR_BLACK);
+        
+        MLV_wait_milliseconds(50);
+    }
 }

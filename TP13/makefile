@@ -2,7 +2,7 @@
 
 CC=gcc
 CFLAGS=-Wall -ansi -g -std=c99
-OBJ=$(OBJPATH)game.o $(OBJPATH)queens.o $(OBJPATH)input_manager.o $(OBJPATH)mlv_board.o $(OBJPATH)queens_helper.o
+OBJ=$(OBJPATH)game.o $(OBJPATH)queens.o $(OBJPATH)mlv_board.o
 OBJPATH=obj/
 SRCPATH=src/
 LDFLAGS=-lMLV -lm
@@ -24,14 +24,8 @@ $(OBJPATH)game.o: $(SRCPATH)game.c
 $(OBJPATH)queens.o: $(SRCPATH)queens.c
 	$(CC) -c $(SRCPATH)queens.c -o $(OBJPATH)queens.o $(CFLAGS) -lMLV
 
-$(OBJPATH)input_manager.o: $(SRCPATH)input_manager.c
-	$(CC) -c $(SRCPATH)input_manager.c -o $(OBJPATH)input_manager.o $(CFLAGS) -lMLV
-
 $(OBJPATH)mlv_board.o: $(SRCPATH)mlv_board.c
 	$(CC) -c $(SRCPATH)mlv_board.c -o $(OBJPATH)mlv_board.o $(CFLAGS) -lMLV
-
-$(OBJPATH)queens_helper.o: $(SRCPATH)queens_helper.c
-	$(CC) -c $(SRCPATH)queens_helper.c -o $(OBJPATH)queens_helper.o $(CFLAGS) -lMLV
 
 clean:
 	rm -f $(OBJ)

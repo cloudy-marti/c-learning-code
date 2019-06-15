@@ -3,7 +3,6 @@
 #include <stdint.h>
 
 #include "../headers/queens.h"
-#include "../headers/queens_helper.h"
 
 int bit_value_bitboard(uint64_t bitboard, int position)
 {
@@ -84,6 +83,7 @@ int set_lady_mask(uint64_t* bitboard, int ladyPosition)
 	int ladyPositionInByte = ladyPosition % BOARD_SIZE;
 
 	int index;
+
 	for(index = 0; index < BOARD_SIZE; ++index)
 	{
 		int currentByte = index * BOARD_SIZE;
@@ -92,13 +92,23 @@ int set_lady_mask(uint64_t* bitboard, int ladyPosition)
 		 * Horizontal
 		 */
 		bit = (ladyByte*BOARD_SIZE) + index;
-		*bitboard = set_positive_bit_bitboard(*bitboard, bit);
+
+		if(bit_value_bitboard(*bitboard, bit) && bit != ladyPosition)
+		{
+			printf("horizontal fails\n");
+			return 0;
+		}
 
 		/**
 		 * Vertical
 		 */
 		bit = currentByte + ladyPositionInByte;
-		*bitboard = set_positive_bit_bitboard(*bitboard, bit);
+
+		if(bit_value_bitboard(*bitboard, bit) && bit != ladyPosition)
+		{
+			printf("vertical fails\n");
+			return 0;
+		}
 
 		/**
 		 * Diagonal
@@ -112,8 +122,11 @@ int set_lady_mask(uint64_t* bitboard, int ladyPosition)
 		
 		if(slash_bound(bit) == slash_bound(ladyPosition))
 		{
-			printf("slash bound = %d\t\t%d\n", slash_bound(ladyPosition), slash_bound(bit));
-			*bitboard = set_positive_bit_bitboard(*bitboard, bit);
+			if(bit_value_bitboard(*bitboard, bit) && bit != ladyPosition)
+			{
+				printf("slash fails\n");
+				return 0;
+			}
 		}
 
 		/**
@@ -123,14 +136,16 @@ int set_lady_mask(uint64_t* bitboard, int ladyPosition)
 
 		if(antislash_bound(bit) == antislash_bound(ladyPosition))
 		{
-			printf("antislash bound = %d\t%d\n", antislash_bound(ladyPosition), antislash_bound(bit));
-			*bitboard = set_positive_bit_bitboard(*bitboard, bit);
+			if(bit_value_bitboard(*bitboard, bit) && bit != ladyPosition)
+			{
+				printf("antislash fails\n");
+				return 0;
+			}
 		}
 	}
 
 	return 1;
 }
-
 
 /**
  * Bits in the same diagonal share some properties
@@ -154,9 +169,4 @@ int get_column(int position)
 int get_row(int position)
 {
 	return position/BOARD_SIZE;
-}
-
-int get_position(int row, int column)
-{
-	return (column*BOARD_SIZE) + row;
 }
